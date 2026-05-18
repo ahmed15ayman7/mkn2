@@ -1,6 +1,7 @@
 import type { Inquiry, Partner, Project, SeoMetadata } from "@prisma/client";
-import { parseAmenitiesJson } from "@/lib/projects/page";
-import type { ProjectAmenity } from "@/lib/projects/types";
+import { parseAmenitiesJson } from "@/lib/projects/parse-amenities";
+import { parseMaterialColorsJson } from "@/lib/projects/parse-material-colors";
+import type { ProjectAmenity, ProjectMaterialColor } from "@/lib/projects/types";
 
 export type SerializedProject = {
   id: string;
@@ -51,6 +52,8 @@ export type SerializedProject = {
   locationBlurbAr: string | null;
   locationLabelEn: string | null;
   locationLabelAr: string | null;
+  materialColorsIntroImageUrl: string | null;
+  materialColors: ProjectMaterialColor[];
   luxuryTitleEn: string | null;
   luxuryTitleAr: string | null;
   luxuryCol1En: string | null;
@@ -128,6 +131,8 @@ export function serializeProject(
     locationBlurbAr: project.locationBlurbAr,
     locationLabelEn: project.locationLabelEn,
     locationLabelAr: project.locationLabelAr,
+    materialColorsIntroImageUrl: project.materialColorsIntroImageUrl,
+    materialColors: parseMaterialColorsJson(project.materialColors),
     luxuryTitleEn: project.luxuryTitleEn,
     luxuryTitleAr: project.luxuryTitleAr,
     luxuryCol1En: project.luxuryCol1En,

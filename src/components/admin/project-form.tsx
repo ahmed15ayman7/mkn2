@@ -5,13 +5,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ProjectAmenitiesEditor } from "@/components/admin/project-amenities-editor";
+import { ProjectMaterialColorsEditor } from "@/components/admin/project-material-colors-editor";
 import {
   AdminField,
   AdminInput,
   AdminTextarea,
 } from "@/components/admin/admin-field";
 import type { SerializedProject } from "@/lib/admin/serialize";
-import type { ProjectAmenity } from "@/lib/projects/types";
+import type { ProjectAmenity, ProjectMaterialColor } from "@/lib/projects/types";
 import { parseFacilityLines, parseImageLines } from "@/lib/validation/admin";
 import { cn } from "@/lib/utils";
 
@@ -19,9 +20,16 @@ type ProjectFormProps = {
   project?: SerializedProject;
 };
 
-function buildPayload(form: FormData, amenities: ProjectAmenity[]) {
+function buildPayload(
+  form: FormData,
+  amenities: ProjectAmenity[],
+  materialColors: ProjectMaterialColor[],
+) {
   const filteredAmenities = amenities.filter(
     (a) => a.titleEn.trim() || a.titleAr.trim(),
+  );
+  const filteredColors = materialColors.filter(
+    (c) => c.nameEn.trim() || c.nameAr.trim(),
   );
 
   return {
@@ -78,6 +86,8 @@ function buildPayload(form: FormData, amenities: ProjectAmenity[]) {
     locationBlurbAr: String(form.get("locationBlurbAr") ?? ""),
     locationLabelEn: String(form.get("locationLabelEn") ?? ""),
     locationLabelAr: String(form.get("locationLabelAr") ?? ""),
+    materialColorsIntroImageUrl: String(form.get("materialColorsIntroImageUrl") ?? ""),
+    materialColors: filteredColors,
     luxuryTitleEn: String(form.get("luxuryTitleEn") ?? ""),
     luxuryTitleAr: String(form.get("luxuryTitleAr") ?? ""),
     luxuryCol1En: String(form.get("luxuryCol1En") ?? ""),
@@ -122,6 +132,9 @@ export function ProjectForm({ project }: ProjectFormProps) {
   const [amenities, setAmenities] = useState<ProjectAmenity[]>(
     project?.amenities ?? [],
   );
+  const [materialColors, setMaterialColors] = useState<ProjectMaterialColor[]>(
+    project?.materialColors ?? [],
+  );
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -129,7 +142,7 @@ export function ProjectForm({ project }: ProjectFormProps) {
     setLoading(true);
 
     const form = new FormData(e.currentTarget);
-    const payload = buildPayload(form, amenities);
+    const payload = buildPayload(form, amenities, materialColors);
 
     try {
       const url = project
@@ -459,6 +472,22 @@ export function ProjectForm({ project }: ProjectFormProps) {
           label="Location text (AR)"
           name="locationBlurbAr"
           defaultValue={project?.locationBlurbAr ?? ""}
+        />
+      </Section>
+
+      <Section
+        title="Material colors"
+        description="Color palette shown after the location map. Optional intro image appears as the first card."
+      >
+        <AdminInput
+          label="Intro image URL (optional)"
+          name="materialColorsIntroImageUrl"
+          type="url"
+          defaultValue={project?.materialColorsIntroImageUrl ?? ""}
+        />
+        <ProjectMaterialColorsEditor
+          value={materialColors}
+          onChange={setMaterialColors}
         />
       </Section>
 

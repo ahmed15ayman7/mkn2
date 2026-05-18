@@ -88,55 +88,80 @@ model Project {
   images          String[]  @default([])
   featured        Boolean   @default(false)
 
-  // Project detail page (Sea Point layout)
-  heroSubtitleEn      String?
-  heroSubtitleAr      String?
-  deliveryTitleEn     String?
-  deliveryTitleAr     String?
-  deliveryBody1En     String?  @db.Text
-  deliveryBody1Ar     String?  @db.Text
-  deliveryBody2En     String?  @db.Text
-  deliveryBody2Ar     String?  @db.Text
-  deliveryVideoUrl    String?
-  deliveryCtaEn       String?
-  deliveryCtaAr       String?
-  brochureUrl         String?
-  panoramicImageUrl           String?
-  /// YouTube — opens in modal from hero play button
+  // Detail page sections — see src/lib/projects/fields.ts & ProjectPageView
+
+  // hero.subtitle
+  heroSubtitleEn String?
+  heroSubtitleAr String?
+
+  // videos.*
+  /// videos.heroModal — YouTube, hero play → modal
   panoramicVideoUrl           String?
-  /// MP4 or YouTube — autoplay background between delivery and gallery (no play button)
+  /// videos.deliveryModal — delivery play → modal
+  deliveryVideoUrl              String?
+  /// videos.background — autoplay strip (no play button)
   panoramicBackgroundVideoUrl String?
+  /// videos.backgroundPoster
+  panoramicImageUrl           String?
+
+  // delivery.*
+  deliveryTitleEn  String?
+  deliveryTitleAr  String?
+  deliveryBody1En  String? @db.Text
+  deliveryBody1Ar  String? @db.Text
+  deliveryBody2En  String? @db.Text
+  deliveryBody2Ar  String? @db.Text
+  deliveryCtaEn    String?
+  deliveryCtaAr    String?
+  brochureUrl      String?
+
+  // gallery.*
   designGalleryImages String[] @default([])
-  coastalTitleEn      String?  @db.Text
-  coastalTitleAr      String?  @db.Text
-  coastalCol1En       String?  @db.Text
-  coastalCol1Ar       String?  @db.Text
-  coastalCol2En       String?  @db.Text
-  coastalCol2Ar       String?  @db.Text
-  coastalCol3En       String?  @db.Text
-  coastalCol3Ar       String?  @db.Text
-  coastalHighlightEn  String?  @db.Text
-  coastalHighlightAr  String?  @db.Text
   galleryImages       String[] @default([])
-  mapImageUrl         String?
-  mapLogoUrl          String?
-  locationBlurbEn     String?  @db.Text
-  locationBlurbAr     String?  @db.Text
-  locationLabelEn     String?
-  locationLabelAr     String?
-  luxuryTitleEn       String?  @db.Text
-  luxuryTitleAr       String?  @db.Text
-  luxuryCol1En        String?  @db.Text
-  luxuryCol1Ar        String?  @db.Text
-  luxuryCol2En        String?  @db.Text
-  luxuryCol2Ar        String?  @db.Text
-  closingImageUrl     String?
-  facilitiesTitleEn   String?
-  facilitiesTitleAr   String?
-  facilitiesEn        String[] @default([])
-  facilitiesAr        String[] @default([])
+
+  // coastal.*
+  coastalTitleEn     String? @db.Text
+  coastalTitleAr     String? @db.Text
+  coastalCol1En      String? @db.Text
+  coastalCol1Ar      String? @db.Text
+  coastalCol2En      String? @db.Text
+  coastalCol2Ar      String? @db.Text
+  coastalCol3En      String? @db.Text
+  coastalCol3Ar      String? @db.Text
+  coastalHighlightEn String? @db.Text
+  coastalHighlightAr String? @db.Text
+
+  // map.*
+  mapImageUrl     String?
+  mapLogoUrl      String?
+  locationLabelEn String?
+  locationLabelAr String?
+  locationBlurbEn String? @db.Text
+  locationBlurbAr String? @db.Text
+
+  // materialColors.* — palette after map section
+  materialColorsIntroImageUrl String?
+  /// [{ category, nameEn, nameAr, hex, ralCode?, ncsCode? }]
+  materialColors Json @default("[]")
+
+  // luxury.*
+  luxuryTitleEn String? @db.Text
+  luxuryTitleAr String? @db.Text
+  luxuryCol1En  String? @db.Text
+  luxuryCol1Ar  String? @db.Text
+  luxuryCol2En  String? @db.Text
+  luxuryCol2Ar  String? @db.Text
+
+  // facilities.*
+  facilitiesTitleEn String?
+  facilitiesTitleAr String?
+  facilitiesEn      String[] @default([])
+  facilitiesAr      String[] @default([])
+
+  // closingImage, amenities[]
+  closingImageUrl String?
   /// [{ titleEn, titleAr, descEn, descAr, imageUrl?, variant? }]
-  amenities           Json     @default("[]")
+  amenities Json @default("[]")
 
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt

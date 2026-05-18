@@ -1,59 +1,15 @@
 import type { Prisma } from "@prisma/client";
 import type { z } from "zod";
+import { PROJECT_PAGE_CONTENT_FIELDS } from "@/lib/projects/fields";
 import type { projectBodySchema } from "@/lib/validation/admin";
 
 type ProjectInput = z.infer<typeof projectBodySchema>;
 
+type PageContentField = (typeof PROJECT_PAGE_CONTENT_FIELDS)[number];
+
 function pageFields(
   data: ProjectInput,
-): Pick<
-  Prisma.ProjectCreateInput,
-  | "heroSubtitleEn"
-  | "heroSubtitleAr"
-  | "deliveryTitleEn"
-  | "deliveryTitleAr"
-  | "deliveryBody1En"
-  | "deliveryBody1Ar"
-  | "deliveryBody2En"
-  | "deliveryBody2Ar"
-  | "deliveryVideoUrl"
-  | "deliveryCtaEn"
-  | "deliveryCtaAr"
-  | "brochureUrl"
-  | "panoramicImageUrl"
-  | "panoramicVideoUrl"
-  | "panoramicBackgroundVideoUrl"
-  | "designGalleryImages"
-  | "coastalTitleEn"
-  | "coastalTitleAr"
-  | "coastalCol1En"
-  | "coastalCol1Ar"
-  | "coastalCol2En"
-  | "coastalCol2Ar"
-  | "coastalCol3En"
-  | "coastalCol3Ar"
-  | "coastalHighlightEn"
-  | "coastalHighlightAr"
-  | "galleryImages"
-  | "mapImageUrl"
-  | "mapLogoUrl"
-  | "locationBlurbEn"
-  | "locationBlurbAr"
-  | "locationLabelEn"
-  | "locationLabelAr"
-  | "luxuryTitleEn"
-  | "luxuryTitleAr"
-  | "luxuryCol1En"
-  | "luxuryCol1Ar"
-  | "luxuryCol2En"
-  | "luxuryCol2Ar"
-  | "closingImageUrl"
-  | "facilitiesTitleEn"
-  | "facilitiesTitleAr"
-  | "facilitiesEn"
-  | "facilitiesAr"
-  | "amenities"
-> {
+): Pick<Prisma.ProjectCreateInput, PageContentField> {
   return {
     heroSubtitleEn: data.heroSubtitleEn ?? undefined,
     heroSubtitleAr: data.heroSubtitleAr ?? undefined,
@@ -88,6 +44,8 @@ function pageFields(
     locationBlurbAr: data.locationBlurbAr ?? undefined,
     locationLabelEn: data.locationLabelEn ?? undefined,
     locationLabelAr: data.locationLabelAr ?? undefined,
+    materialColorsIntroImageUrl: data.materialColorsIntroImageUrl ?? undefined,
+    materialColors: (data.materialColors ?? []) as Prisma.InputJsonValue,
     luxuryTitleEn: data.luxuryTitleEn ?? undefined,
     luxuryTitleAr: data.luxuryTitleAr ?? undefined,
     luxuryCol1En: data.luxuryCol1En ?? undefined,

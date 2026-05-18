@@ -39,6 +39,25 @@ export const projectAmenitySchema = z.object({
   variant: z.enum(["default", "accent", "muted", "image"]).optional(),
 });
 
+const hexColorSchema = z
+  .string()
+  .regex(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/, "Use a valid hex color (#RRGGBB)");
+
+export const projectMaterialColorSchema = z.object({
+  category: z.enum(["primary", "secondary"]),
+  nameEn: z.string().min(1),
+  nameAr: z.string().min(1),
+  hex: hexColorSchema,
+  ralCode: z
+    .string()
+    .optional()
+    .transform((v) => (v && v.trim().length > 0 ? v.trim() : null)),
+  ncsCode: z
+    .string()
+    .optional()
+    .transform((v) => (v && v.trim().length > 0 ? v.trim() : null)),
+});
+
 export const projectBodySchema = z.object({
   slug: slugSchema,
   titleAr: z.string().min(1).max(200),
@@ -91,6 +110,8 @@ export const projectBodySchema = z.object({
   locationBlurbAr: optionalText,
   locationLabelEn: optionalText,
   locationLabelAr: optionalText,
+  materialColorsIntroImageUrl: optionalUrl,
+  materialColors: z.array(projectMaterialColorSchema).optional(),
   luxuryTitleEn: optionalText,
   luxuryTitleAr: optionalText,
   luxuryCol1En: optionalText,

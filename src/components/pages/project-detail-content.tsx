@@ -6,6 +6,7 @@ import { ScrollSection } from "@/components/motion/scroll-section";
 import { ProjectPanoramicBackgroundVideo } from "@/components/media/project-panoramic-background-video";
 import { ProjectVideoModal } from "@/components/media/project-video-modal";
 import { ProjectVideoPlayButton } from "@/components/media/project-video-play-button";
+import { ProjectMaterialColors } from "@/components/sections/project-material-colors";
 import { buttonVariants } from "@/components/ui/button";
 import { gallerySlots } from "@/lib/projects/gallery";
 import type { ProjectPageView, ProjectAmenityVariant } from "@/lib/projects/types";
@@ -27,18 +28,18 @@ function splitDeliveryTitle(title: string) {
 
 export function ProjectDetailContent({ page }: Props) {
   const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
-  const gallery = gallerySlots(page.galleryImages, page.heroImage);
-  const extraGallery = page.galleryImages.slice(5);
+  const gallery = gallerySlots(page.gallery.all, page.coverImage);
+  const extraGallery = page.gallery.all.slice(5);
   const splitDelivery = splitDeliveryTitle(page.delivery.title);
   const showLuxuryIntro = Boolean(page.luxury.col1 || page.luxury.col2);
   const showFeatureSection =
     Boolean(page.luxury.title) || showLuxuryIntro || page.amenities.length > 0;
 
-  const openPanoramic = () => {
-    if (page.panoramicVideo) setActiveVideoUrl(page.panoramicVideo);
+  const openHeroVideo = () => {
+    if (page.videos.heroModal) setActiveVideoUrl(page.videos.heroModal);
   };
-  const openDelivery = () => {
-    if (page.delivery.videoUrl) setActiveVideoUrl(page.delivery.videoUrl);
+  const openDeliveryVideo = () => {
+    if (page.videos.deliveryModal) setActiveVideoUrl(page.videos.deliveryModal);
   };
 
   return (
@@ -51,7 +52,7 @@ export function ProjectDetailContent({ page }: Props) {
       />
       <ScrollSection preset="project-hero" as="section" className="relative min-h-[70vh]">
         <Image
-          src={page.heroImage}
+          src={page.coverImage}
           alt={page.title}
           fill
           className="object-cover"
@@ -68,9 +69,9 @@ export function ProjectDetailContent({ page }: Props) {
               height={40}
               className="h-10 w-auto"
             />
-            {page.panoramicVideo && (
+            {page.videos.heroModal && (
               <div className="mt-6">
-                <ProjectVideoPlayButton variant="hero" onClick={openPanoramic} />
+                <ProjectVideoPlayButton variant="hero" onClick={openHeroVideo} />
               </div>
             )}
             {page.completionLabel && (
@@ -81,14 +82,14 @@ export function ProjectDetailContent({ page }: Props) {
             <h1
               className={cn(
                 "font-serif text-4xl font-bold md:text-5xl",
-                page.panoramicVideo || page.completionLabel ? "mt-4" : "mt-6",
+                page.videos.heroModal || page.completionLabel ? "mt-4" : "mt-6",
               )}
             >
               {page.title}
             </h1>
-            {(page.heroSubtitle || page.summary) && (
+            {(page.hero.subtitle || page.description) && (
               <p className="mt-2 text-lg text-white/85">
-                {page.heroSubtitle ?? page.summary}
+                {page.hero.subtitle ?? page.description}
               </p>
             )}
             <p className="mt-1 text-sm text-white/60">{page.location}</p>
@@ -103,10 +104,10 @@ export function ProjectDetailContent({ page }: Props) {
       >
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-8">
           <div className="flex flex-col gap-6">
-            {page.delivery.videoUrl && (
+            {page.videos.deliveryModal && (
               <ProjectVideoPlayButton
                 variant="delivery"
-                onClick={openDelivery}
+                onClick={openDeliveryVideo}
                 className="self-start"
               />
             )}
@@ -150,10 +151,10 @@ export function ProjectDetailContent({ page }: Props) {
         </div>
       </ScrollSection>
 
-      {page.panoramicBackgroundVideo && (
+      {page.videos.background && (
         <ProjectPanoramicBackgroundVideo
-          videoSrc={page.panoramicBackgroundVideo}
-          posterSrc={page.panoramicPoster}
+          videoSrc={page.videos.background}
+          posterSrc={page.videos.backgroundPoster}
         />
       )}
 
@@ -264,6 +265,11 @@ export function ProjectDetailContent({ page }: Props) {
           </div>
         </ScrollSection>
       )}
+
+      <ProjectMaterialColors
+        introImage={page.materialColors.introImage}
+        items={page.materialColors.items}
+      />
 
       {showFeatureSection && (
         <ScrollSection
