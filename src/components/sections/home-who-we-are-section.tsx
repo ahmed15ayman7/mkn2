@@ -66,7 +66,7 @@ export function HomeWhoWeAreSection({
         </div>
 
         <div className={cn(isRtl && "lg:order-1")}>
-          <HomeDiamondCollage thumbs={thumbs} variant="cross" />
+          <HomeDiamondCollage thumbs={thumbs}  />
         </div>
       </div>
     </section>
