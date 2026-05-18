@@ -44,5 +44,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-ENTRYPOINT ["/usr/bin/tini", "--", "./docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--" ]
 CMD ["node", "server.js"]
