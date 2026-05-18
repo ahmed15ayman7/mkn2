@@ -7,7 +7,6 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { fontAr, fontEn, fontQuote } from "@/lib/fonts";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-import "../globals.css";
 
 export const metadata: Metadata = {
   title: {
