@@ -2,6 +2,8 @@ import type { Prisma, Project } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import type { ProjectAmenity, ProjectPageView } from "@/lib/projects/types";
 
+export { gallerySlots } from "@/lib/projects/gallery";
+
 function pick(locale: string, en: string | null | undefined, ar: string | null | undefined) {
   const value = locale === "ar" ? ar : en;
   return value?.trim() ? value : null;
@@ -110,9 +112,4 @@ export async function getProjectPageBySlug(
   const project = await prisma.project.findUnique({ where: { slug } });
   if (!project) return null;
   return toProjectPageView(project, locale);
-}
-
-export function gallerySlots(images: string[], fallback: string): string[] {
-  const base = images.length > 0 ? images : [fallback];
-  return Array.from({ length: 5 }, (_, i) => base[i % base.length]!);
 }

@@ -4,6 +4,8 @@ import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+import { TransitionLink } from "@/components/motion/transition-link";
+import { m } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -30,7 +32,10 @@ export function SiteHeader() {
 
   return (
     <>
-      <header
+      <m.header
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
           "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300",
           scrolled
@@ -39,18 +44,18 @@ export function SiteHeader() {
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-[4.25rem] sm:px-6 lg:px-8">
-          <Link
+          <TransitionLink
             href="/"
             className="flex items-center gap-2.5"
             onClick={() => setOpen(false)}
           >
             <Image src="/logo-mkn.png" alt="MKN Logo" width={32} height={32} className="w-20 h-20" />
             
-          </Link>
+          </TransitionLink>
 
           <nav className="hidden items-center gap-8 md:flex">
             {nav.map((item) => (
-              <Link
+              <TransitionLink
                 key={item.href}
                 href={item.href}
                 className={cn(
@@ -61,7 +66,7 @@ export function SiteHeader() {
                 )}
               >
                 {item.label}
-              </Link>
+              </TransitionLink>
             ))}
             <LocaleSwitcher onDark={onDark} />
           </nav>
@@ -90,20 +95,20 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
-      </header>
+      </m.header>
 
       {open ? (
         <div className="fixed inset-0 z-40 bg-primary md:hidden">
           <div className="flex h-full flex-col pt-20">
             {nav.map((item) => (
-              <Link
+              <TransitionLink
                 key={item.href}
                 href={item.href}
                 className="border-b border-white/10 px-6 py-4 text-lg font-medium text-white"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
-              </Link>
+              </TransitionLink>
             ))}
           </div>
         </div>

@@ -2,6 +2,10 @@
 
 import { Play } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
+import { ScrollSection } from "@/components/motion/scroll-section";
+import { StaggerChildren } from "@/components/motion/stagger-children";
+import { TransitionLink } from "@/components/motion/transition-link";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +26,8 @@ export function OurNumbersSection({
 
   if (isProjects) {
     return (
-      <section
+      <ScrollSection
+        preset="projects-numbers"
         className={cn(
           "relative overflow-hidden bg-brand-gold py-16 text-brand-navy md:py-24",
           className,
@@ -53,11 +58,11 @@ export function OurNumbersSection({
                 </p>
               </div>
 
-              <div className="grid gap-10 border-t border-brand-navy/15 pt-10 md:grid-cols-3">
-                <Stat value={t("stat1")} label={t("stat1b")} desc={t("desc1")} />
-                <Stat value={t("stat2")} label={t("stat2b")} desc={t("desc2")} />
-                <Stat value={t("stat3")} label={t("stat3b")} desc={t("desc3")} />
-              </div>
+              <StaggerChildren preset="projects-numbers" className="grid gap-10 border-t border-brand-navy/15 pt-10 md:grid-cols-3">
+                <Stat preset="projects-numbers" index={0} value={t("stat1")} label={t("stat1b")} desc={t("desc1")} />
+                <Stat preset="projects-numbers" index={1} value={t("stat2")} label={t("stat2b")} desc={t("desc2")} />
+                <Stat preset="projects-numbers" index={2} value={t("stat3")} label={t("stat3b")} desc={t("desc3")} />
+              </StaggerChildren>
 
               <div className="flex flex-wrap gap-3">
                 <span className="inline-flex h-11 items-center rounded-sm bg-white px-6 text-xs font-semibold uppercase tracking-wide text-brand-navy shadow-sm">
@@ -85,12 +90,13 @@ export function OurNumbersSection({
             </h2>
           </div>
         </div>
-      </section>
+      </ScrollSection>
     );
   }
 
   return (
-    <section
+    <ScrollSection
+      preset="about-numbers"
       className={cn(
         "relative overflow-hidden bg-brand-gold py-16 text-brand-navy md:py-24",
         className,
@@ -182,34 +188,40 @@ export function OurNumbersSection({
           ))}
         </div>
 
-        <div className="mt-12 grid gap-12 border-t border-brand-navy/15 pt-12 md:grid-cols-3">
-          <Stat value={t("stat1")} label={t("stat1b")} desc={t("desc1")} />
-          <Stat value={t("stat2")} label={t("stat2b")} desc={t("desc2")} />
-          <Stat value={t("stat3")} label={t("stat3b")} desc={t("desc3")} />
-        </div>
+        <StaggerChildren preset="about-numbers" className="mt-12 grid gap-12 border-t border-brand-navy/15 pt-12 md:grid-cols-3">
+          <Stat preset="about-numbers" index={0} value={t("stat1")} label={t("stat1b")} desc={t("desc1")} />
+          <Stat preset="about-numbers" index={1} value={t("stat2")} label={t("stat2b")} desc={t("desc2")} />
+          <Stat preset="about-numbers" index={2} value={t("stat3")} label={t("stat3b")} desc={t("desc3")} />
+        </StaggerChildren>
       </div>
-    </section>
+    </ScrollSection>
   );
 }
 
 function Stat({
+  preset,
+  index,
   value,
   label,
   desc,
 }: {
+  preset: "about-numbers" | "projects-numbers";
+  index: number;
   value: string;
   label: string;
   desc: string;
 }) {
   return (
-    <div>
-      <p className="text-5xl font-bold md:text-6xl">{value}</p>
-      <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-brand-navy/65">
-        {label}
-      </p>
-      <p className="mt-4 max-w-sm text-sm leading-relaxed text-brand-navy/80">
-        {desc}
-      </p>
-    </div>
+    <ScrollReveal preset={preset} variantKey="card" custom={index}>
+      <div>
+        <p className="text-5xl font-bold md:text-6xl">{value}</p>
+        <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-brand-navy/65">
+          {label}
+        </p>
+        <p className="mt-4 max-w-sm text-sm leading-relaxed text-brand-navy/80">
+          {desc}
+        </p>
+      </div>
+    </ScrollReveal>
   );
 }

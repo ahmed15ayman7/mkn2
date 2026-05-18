@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { ScrollSection } from "@/components/motion/scroll-section";
 import { cn } from "@/lib/utils";
 
 const field =
@@ -75,7 +76,7 @@ export function ContactForm() {
   }
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <ScrollSection preset="contact-form" as="section" className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-2xl px-4 lg:max-w-3xl lg:px-8">
         <p className="text-sm text-brand-navy/45">{t("formLabel")}</p>
         <h2 className="mt-2 text-2xl font-bold tracking-tight text-brand-navy md:text-3xl">
@@ -185,6 +186,6 @@ export function ContactForm() {
           </button>
         </form>
       </div>
-    </section>
+    </ScrollSection>
   );
 }

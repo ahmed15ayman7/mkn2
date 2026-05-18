@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { ScrollSection } from "@/components/motion/scroll-section";
 import { Link } from "@/i18n/navigation";
 import type { PublicProjectCard } from "@/lib/projects/public";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,8 @@ function watermarkWord(title: string): string {
 
 export function ProjectsShowcaseCarousel({ projects }: Props) {
   const t = useTranslations("Projects");
+  const locale = useLocale();
+  const isRtl = locale === "ar";
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -47,7 +50,7 @@ export function ProjectsShowcaseCarousel({ projects }: Props) {
   const mark = watermarkWord(current.title);
 
   return (
-    <section className="relative bg-white">
+    <ScrollSection preset="projects-carousel" as="section" className="relative bg-white" isRtl={isRtl}>
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-50"
         style={{
@@ -180,6 +183,6 @@ export function ProjectsShowcaseCarousel({ projects }: Props) {
           </button>
         </div>
       </div>
-    </section>
+    </ScrollSection>
   );
 }

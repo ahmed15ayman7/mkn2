@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
+import { ScrollSection } from "@/components/motion/scroll-section";
 import { buttonVariants } from "@/components/ui/button";
-import { gallerySlots } from "@/lib/projects/page";
+import { gallerySlots } from "@/lib/projects/gallery";
 import type { ProjectPageView, ProjectAmenityVariant } from "@/lib/projects/types";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +26,7 @@ export function ProjectDetailContent({ page }: Props) {
 
   return (
     <>
-      <section className="relative min-h-[70vh]">
+      <ScrollSection preset="project-hero" as="section" className="relative min-h-[70vh]">
         <Image
           src={page.heroImage}
           alt={page.title}
@@ -45,9 +48,9 @@ export function ProjectDetailContent({ page }: Props) {
             <p className="mt-1 text-sm text-white/60">{page.location}</p>
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
-      <section className="bg-section-sage py-20 text-white md:py-28">
+      <ScrollSection preset="project-delivery" as="section" className="bg-section-sage py-20 text-white md:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-8">
           <div className="flex flex-col gap-6">
             {page.delivery.videoUrl && (
@@ -94,7 +97,7 @@ export function ProjectDetailContent({ page }: Props) {
             )}
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
       {page.panoramicImage && (
         <div className="relative h-72 w-full md:h-96">
@@ -108,7 +111,7 @@ export function ProjectDetailContent({ page }: Props) {
         </div>
       )}
 
-      <section className="bg-white py-20 md:py-28">
+      <ScrollSection preset="project-gallery" as="section" className="bg-white py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           {page.coastal.title && (
             <h2 className="max-w-2xl text-3xl font-bold tracking-tight text-brand-navy md:text-5xl">
@@ -168,10 +171,10 @@ export function ProjectDetailContent({ page }: Props) {
             </div>
           )}
         </div>
-      </section>
+      </ScrollSection>
 
       {page.map.image && (
-        <section className="relative min-h-[420px]">
+        <ScrollSection preset="project-closing" as="section" className="relative min-h-[420px]">
           <Image
             src={page.map.image}
             alt=""
@@ -191,11 +194,11 @@ export function ProjectDetailContent({ page }: Props) {
               {page.map.blurb ?? page.location}
             </p>
           </div>
-        </section>
+        </ScrollSection>
       )}
 
       {(page.luxury.title || page.luxury.col1 || page.luxury.col2) && (
-        <section className="bg-surface py-20 md:py-28">
+        <ScrollSection preset="project-amenities" as="section" className="bg-surface py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             {page.luxury.title && (
               <h2 className="max-w-xl text-3xl font-bold text-brand-navy md:text-4xl">
@@ -215,11 +218,11 @@ export function ProjectDetailContent({ page }: Props) {
               )}
             </div>
           </div>
-        </section>
+        </ScrollSection>
       )}
 
       {page.amenities.length > 0 && (
-        <section className="bg-white py-20 md:py-28">
+        <ScrollSection preset="project-amenities" as="section" className="bg-white py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {page.amenities.map((item, i) => (
@@ -246,7 +249,7 @@ export function ProjectDetailContent({ page }: Props) {
               ))}
             </div>
           </div>
-        </section>
+        </ScrollSection>
       )}
 
       {page.closingImage && (

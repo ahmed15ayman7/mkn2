@@ -1,3 +1,8 @@
+"use client";
+
+import { ScrollSection } from "@/components/motion/scroll-section";
+import { m } from "framer-motion";
+
 type Props = {
   items: readonly string[];
   className?: string;
@@ -7,11 +12,19 @@ export function SectionMarquee({ items, className }: Props) {
   const track = [...items, ...items];
 
   return (
-    <div
+    <ScrollSection
+      preset="home-marquee"
+      as="div"
       className={`overflow-hidden border-y border-white/10 bg-brand-navy py-4 text-white ${className ?? ""}`}
       aria-hidden
     >
-      <div className="flex w-max animate-marquee">
+      <m.div
+        className="flex w-max animate-marquee"
+        initial={{ opacity: 0, scaleX: 0.85 }}
+        whileInView={{ opacity: 1, scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
         {track.map((label, i) => (
           <span
             key={`${label}-${i}`}
@@ -21,7 +34,7 @@ export function SectionMarquee({ items, className }: Props) {
             <span>{label}</span>
           </span>
         ))}
-      </div>
-    </div>
+      </m.div>
+    </ScrollSection>
   );
 }

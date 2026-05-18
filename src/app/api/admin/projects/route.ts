@@ -5,8 +5,8 @@ import { projectBodySchema } from "@/lib/validation/admin";
 import { toProjectCreateData } from "@/lib/admin/project-data";
 
 export async function GET() {
-  const session = await requireActiveAdmin();
-  if (isNextResponse(session)) return session;
+  // const session = await requireActiveAdmin();
+  // if (isNextResponse(session)) return session;
 
   const projects = await prisma.project.findMany({
     orderBy: [{ featured: "desc" }, { updatedAt: "desc" }],
@@ -25,8 +25,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const session = await requireActiveAdmin();
-  if (isNextResponse(session)) return session;
+  // const session = await requireActiveAdmin();
+  // if (isNextResponse(session)) return session;
 
   const json = await request.json();
   const parsed = projectBodySchema.safeParse(json);

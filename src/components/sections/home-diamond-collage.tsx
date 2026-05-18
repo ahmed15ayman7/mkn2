@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 
 type Thumb = { src: string; caption: string };
 
+const TAN = "#b8a278";
+
 export function HomeDiamondCollage({
   thumbs,
   className,
@@ -10,14 +12,14 @@ export function HomeDiamondCollage({
 }: {
   thumbs: readonly Thumb[];
   className?: string;
-  variant?: "stacked" | "cross";
+  variant?: "stacked" | "triangle" | "cross";
 }) {
-  if (variant === "cross") {
-    const items = thumbs.slice(0, 4);
+  if (variant === "triangle" || variant === "cross") {
+    const items = thumbs.slice(0, 3);
     return (
       <div
         className={cn(
-          "relative mx-auto aspect-square w-full max-w-sm sm:max-w-md lg:max-w-lg",
+          "relative mx-auto aspect-[1.02] w-full max-w-md sm:max-w-lg lg:max-w-xl",
           className,
         )}
       >
@@ -26,7 +28,7 @@ export function HomeDiamondCollage({
             src={items[0].src}
             alt={items[0].caption}
             framed
-            className="absolute start-1/2 top-[2%] z-10 w-[38%] -translate-x-1/2"
+            className="absolute start-1/2 top-[3%] z-10 w-[46%] -translate-x-1/2 sm:w-[44%]"
           />
         )}
         {items[1] && (
@@ -34,7 +36,7 @@ export function HomeDiamondCollage({
             src={items[1].src}
             alt={items[1].caption}
             framed
-            className="absolute start-[4%] top-1/2 z-20 w-[38%] -translate-y-1/2"
+            className="absolute start-[8%] top-[54%] z-20 w-[46%] sm:w-[44%]"
           />
         )}
         {items[2] && (
@@ -42,7 +44,7 @@ export function HomeDiamondCollage({
             src={items[2].src}
             alt={items[2].caption}
             framed
-            className="absolute end-[4%] top-1/2 z-20 w-[38%] -translate-y-1/2"
+            className="absolute end-[8%] top-[54%] z-20 w-[46%] sm:w-[44%]"
           />
         )}
       </div>
@@ -89,9 +91,18 @@ function DiamondFrame({
   if (framed) {
     return (
       <div className={cn("relative aspect-square w-full", className)}>
-        <div className="relative size-full clip-diamond bg-[#b8a278] p-[3px]">
+        <div
+          className="relative size-full clip-diamond p-[5px] sm:p-[6px]"
+          style={{ backgroundColor: TAN }}
+        >
           <div className="relative size-full clip-diamond overflow-hidden">
-            <Image src={src} alt={alt} fill className="object-cover" sizes="240px" />
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 40vw, 220px"
+            />
           </div>
         </div>
       </div>

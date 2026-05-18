@@ -4,6 +4,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { MotionProvider } from "@/components/motion/motion-provider";
+import { PageTransitionProvider } from "@/components/motion/page-transition-context";
+import { PageTransitionShell } from "@/components/motion/page-transition-shell";
 import { fontAr, fontEn, fontQuote, fontSignature } from "@/lib/fonts";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -55,11 +58,15 @@ export default async function LocaleLayout({ children, params }: Props) {
         }`}
       >
         <NextIntlClientProvider messages={messages}>
-          <div className="flex min-h-screen flex-col">
-            <SiteHeader />
-            <main className="flex flex-1 flex-col">{children}</main>
-            <SiteFooter />
-          </div>
+          <MotionProvider>
+            <PageTransitionProvider>
+              <div className="flex min-h-screen flex-col">
+                <SiteHeader />
+                <PageTransitionShell>{children}</PageTransitionShell>
+                <SiteFooter />
+              </div>
+            </PageTransitionProvider>
+          </MotionProvider>
         </NextIntlClientProvider>
       </body>
     </html>

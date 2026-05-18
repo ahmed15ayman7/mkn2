@@ -1,7 +1,8 @@
-import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
-import { ImageSlider } from "@/components/media/image-slider";
 import { VideoHeroBackdrop } from "@/components/media/video-hero-backdrop";
+import { HomeFeaturedSection } from "@/components/sections/home-featured-section";
+import { HomeLifestyleSection } from "@/components/sections/home-lifestyle-section";
+import { HomeProjectsGridSection } from "@/components/sections/home-projects-grid-section";
 import { HomeWhoWeAreSection } from "@/components/sections/home-who-we-are-section";
 import { PartnersSection } from "@/components/sections/partners-section";
 import { SectionMarquee } from "@/components/sections/section-marquee";
@@ -12,7 +13,6 @@ import {
   lifestyleImage,
 } from "@/lib/content/home";
 import { getPublicProjects } from "@/lib/projects/public";
-import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 const btnNavy =
@@ -24,6 +24,7 @@ const btnSage =
 export async function HomePageContent() {
   const t = await getTranslations("Home");
   const locale = await getLocale();
+  const isRtl = locale === "ar";
   const thumbs = getHomeProjectThumbs();
   const grid = await getPublicProjects(locale);
   const slides = featuredSliderImages().map((src, i) => ({
@@ -39,12 +40,7 @@ export async function HomePageContent() {
         heightClass="min-h-[98vh] sm:min-h-[95vh]"
       >
         <div className="mx-auto w-full max-w-7xl">
-          <div className="max-w-4xl">
-            {/* <h1 className="text-[clamp(3.5rem,12vw,7.5rem)] font-bold leading-[0.95] uppercase tracking-[0.14em] text-white">
-              {t("heroWord")}
-            </h1> */}
-            {/* <div className="mt-5 h-px w-28 bg-white/90" /> */}
-          </div>
+          <div className="max-w-4xl" />
         </div>
       </VideoHeroBackdrop>
 
@@ -54,111 +50,43 @@ export async function HomePageContent() {
         body={t("whoBody")}
         aboutCta={t("aboutCta")}
         companyProfileCta={t("companyProfile")}
-        scrollLabel={t("scrollToTop")}
         thumbs={thumbs}
-        isRtl={locale === "ar"}
+        isRtl={isRtl}
       />
 
-      <section className="bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
-            <div>
-              <h2 className="text-4xl font-bold uppercase tracking-tight text-brand-navy md:text-5xl">
-                {t("projectsTitle")}
-              </h2>
-              <p className="mt-3 max-w-xl text-brand-navy/65">{t("projectsSub")}</p>
-            </div>
-            <Link href="/projects" className={btnNavy}>
-              {t("viewAll")}
-            </Link>
-          </div>
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {grid.map((p) => (
-              <Link
-                key={p.id}
-                href={`/projects/${p.slug}`}
-                className="group relative aspect-[4/5] overflow-hidden bg-surface"
-              >
-                <Image
-                  src={p.coverImage}
-                  alt={p.title}
-                  fill
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-navy/95 via-brand-navy/40 to-transparent px-4 pb-4 pt-16">
-                  <p className="text-sm font-semibold text-white">{p.title}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeProjectsGridSection
+        title={t("projectsTitle")}
+        subtitle={t("projectsSub")}
+        viewAll={t("viewAll")}
+        projects={grid}
+        btnClass={btnNavy}
+      />
 
       <SectionMarquee items={grid.map((p) => p.title)} />
 
-      <section className="bg-white py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
-            <div>
-              <p className="font-serif text-4xl text-brand-navy md:text-5xl">
-                {t("featuredTitle")}
-              </p>
-              <p className="mt-6 max-w-lg text-base leading-relaxed text-brand-navy/75 md:text-lg">
-                {t("featuredBody")}
-              </p>
-              <Link href="/projects/sea-point" className={cn(btnSage, "mt-10")}>
-                {t("viewProject")} →
-              </Link>
-              <div className="mt-12 flex flex-wrap gap-6 border-t border-brand-navy/10 pt-8 text-sm text-brand-navy/60">
-                <span className="font-semibold uppercase tracking-wide">
-                  {t("featuredTitle").toUpperCase()} — {t("metaLocation")}
-                </span>
-                <span>{t("metaYear")}</span>
-              </div>
-            </div>
-            <ImageSlider slides={slides} />
-          </div>
-          <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-brand-navy/10 pt-6 text-sm text-brand-navy/70">
-            <span className="font-semibold uppercase tracking-[0.15em]">
-              {t("featuredTitle").toUpperCase()} — {t("metaLocation").split("·")[0]?.trim()}
-            </span>
-            <Link
-              href="/projects"
-              className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-navy hover:underline"
-            >
-              {t("viewAll")} →
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HomeFeaturedSection
+        isRtl={isRtl}
+        featuredTitle={t("featuredTitle")}
+        featuredBody={t("featuredBody")}
+        viewProject={t("viewProject")}
+        viewAll={t("viewAll")}
+        metaLocation={t("metaLocation")}
+        metaYear={t("metaYear")}
+        btnSage={cn(btnSage)}
+        slides={slides}
+      />
 
-      <section className="relative min-h-[520px]">
-        <Image
-          src={lifestyleImage()}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority={false}
-        />
-        <div className="absolute inset-0 bg-brand-navy/40" />
-        <div className="relative z-10 mx-auto flex min-h-[520px] max-w-7xl flex-col justify-between px-4 py-14 lg:px-8">
-          <p className="max-w-lg text-lg font-medium leading-relaxed text-white md:text-xl">
-            {t("lifestyleTop")}
-          </p>
-          <div>
-            <Link href="/contact" className={btnNavy}>
-              {t("contactCta")}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HomeLifestyleSection
+        imageSrc={lifestyleImage()}
+        text={t("lifestyleTop")}
+        cta={t("contactCta")}
+        btnClass={btnNavy}
+      />
 
       <PartnersSection
         kicker={t("partnersKicker")}
         title={t("partnersTitle")}
-        isRtl={locale === "ar"}
+        isRtl={isRtl}
       />
     </>
   );

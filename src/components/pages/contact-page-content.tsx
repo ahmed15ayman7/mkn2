@@ -1,7 +1,11 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowRight, Clock, MapPin, Phone, Search } from "lucide-react";
 import { ContactForm } from "@/components/forms/contact-form";
+import {
+  ContactCareersSection,
+  ContactInfoSection,
+} from "@/components/pages/contact-motion-sections";
 import { VideoHeroBackdrop } from "@/components/media/video-hero-backdrop";
 import {
   IconFacebook,
@@ -18,6 +22,8 @@ const sectionHeading =
 
 export async function ContactPageContent() {
   const t = await getTranslations("Contact");
+  const locale = await getLocale();
+  const isRtl = locale === "ar";
 
   return (
     <>
@@ -36,7 +42,7 @@ export async function ContactPageContent() {
         </div>
       </VideoHeroBackdrop>
 
-      <section className="relative border-b border-brand-navy/8 bg-white py-14 md:py-16">
+      <ContactInfoSection>
         <button
           type="button"
           className="absolute start-4 top-1/2 z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full border border-brand-navy/15 bg-white text-brand-navy shadow-md lg:flex xl:start-8"
@@ -104,11 +110,11 @@ export async function ContactPageContent() {
             </ul>
           </div>
         </div>
-      </section>
+      </ContactInfoSection>
 
       <ContactForm />
 
-      <section className="relative min-h-[300px] md:min-h-[340px]">
+      <ContactCareersSection isRtl={isRtl}>
         <Image
           src={img.resumeDesk}
           alt=""
@@ -131,7 +137,7 @@ export async function ContactPageContent() {
             <ArrowRight className="size-4 rtl:rotate-180" />
           </a>
         </div>
-      </section>
+      </ContactCareersSection>
     </>
   );
 }

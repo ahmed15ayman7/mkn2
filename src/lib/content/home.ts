@@ -77,12 +77,10 @@ export function getHomeCopy(locale: Locale) {
 }
 
 export function getHomeProjectThumbs() {
-  const src = img.interior1;
   return [
-    { src, caption: "Interior" },
-    { src, caption: "Interior" },
-    { src, caption: "Interior" },
-    { src, caption: "Interior" },
+    { src: img.interior1, caption: "Living room" },
+    { src: img.interior2, caption: "Kitchen" },
+    { src: img.interior3, caption: "Bedroom" },
   ] as const;
 }
 

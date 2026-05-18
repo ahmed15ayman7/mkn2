@@ -1,3 +1,4 @@
+import { HeroMotion } from "@/components/motion/hero-motion";
 import { DEFAULT_HERO_VIDEO_URL } from "@/lib/constants/media";
 import { cn } from "@/lib/utils";
 
@@ -59,7 +60,7 @@ export function VideoHeroBackdrop({
             : "justify-center pb-24 pt-28",
         )}
       >
-        {children}
+        <HeroMotion>{children}</HeroMotion>
       </div>
     </section>
   );
