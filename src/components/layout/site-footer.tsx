@@ -73,11 +73,11 @@ export async function SiteFooter() {
           priority={false}
         />
         <div
-          className="absolute inset-0 bg-brand-navy/25"
+          className="absolute inset-0 "
+          style={{backgroundImage:"linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.25))"}}
           aria-hidden
         />
       </div>
-
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
           <FooterColumn withDivider className="md:ps-0">
@@ -85,9 +85,9 @@ export async function SiteFooter() {
               <Image
                 src="/logo-mkn.png"
                 alt="MKN Developments"
-                width={120}
-                height={140}
-                className="h-auto w-[108px] sm:w-[120px]"
+                width={250}
+                height={250}
+                className=""
               />
             </Link>
           </FooterColumn>

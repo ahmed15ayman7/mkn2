@@ -25,12 +25,12 @@ export function ChairmanMessageSection({
 }: Props) {
   return (
     <section className="relative isolate bg-white">
-      <ScrollToTopRail label={scrollLabel} isRtl={isRtl} />
+      {/* <ScrollToTopRail label={scrollLabel} isRtl={isRtl} /> */}
 
-      <div className="grid min-h-[min(100vh,920px)] lg:grid-cols-2">
+      <div className="grid min-h-[80vh] max-h-[90vh] lg:grid-cols-2">
         <div
           className={cn(
-            "relative min-h-[min(52vh,480px)] lg:min-h-[min(100vh,920px)]",
+            "relative min-h-[min(52vh,480px)] lg:min-h-[80vh] p-5",
             isRtl ? "lg:order-2" : "lg:order-1",
           )}
         >
@@ -42,13 +42,6 @@ export function ChairmanMessageSection({
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-          <button
-            type="button"
-            className="absolute bottom-6 start-6 z-10 flex size-11 items-center justify-center rounded-full border border-white/20 bg-white/90 text-brand-navy shadow-md backdrop-blur-sm transition hover:bg-white lg:bottom-10 lg:start-10"
-            aria-label="Search"
-          >
-            <Search className="size-5" />
-          </button>
         </div>
 
         <div

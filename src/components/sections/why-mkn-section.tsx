@@ -23,11 +23,11 @@ export function WhyMknSection({
   isRtl = false,
 }: Props) {
   const overlayClip = isRtl
-    ? "polygon(100% 0, 38% 0, 62% 100%, 100% 100%)"
-    : "polygon(0 0, 62% 0, 38% 100%, 0 100%)";
+    ? "polygon(100% 0, 8% 0, 67% 100%, 100% 100%)"
+    : "polygon(0 0, 84% 0, 49% 100%, 0 100%)";
 
   return (
-    <section className="relative isolate min-h-[min(92vh,720px)] overflow-hidden md:min-h-[min(88vh,820px)]">
+    <section className="relative isolate min-h-[min(50vh,720px)] overflow-hidden md:min-h-[min(88vh,820px)]">
       <Image
         src={backgroundImage}
         alt=""
@@ -42,12 +42,11 @@ export function WhyMknSection({
         aria-hidden
       />
 
-      <ScrollToTopRail label={scrollLabel} isRtl={isRtl} />
 
       <div
         className={cn(
-          "relative z-10 flex min-h-[min(92vh,720px)] items-center md:min-h-[min(88vh,820px)]",
-          isRtl ? "justify-end" : "justify-start",
+          "relative z-10 flex min-h-[min(50vh,420px)] items-center md:min-h-[min(50vh,820px)]",
+          "justify-start",
         )}
       >
         <div

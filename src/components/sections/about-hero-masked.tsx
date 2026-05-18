@@ -65,7 +65,7 @@ export function AboutHeroMasked({
       </div>
 
       {/* White sheet overlapping the background */}
-      <div className="relative z-20 mx-auto w-full px-4 pb-0 sm:px-6 lg:px-8">
+      <div className="relative z-20 mx-auto w-full pb-0">
         <div className="relative bg-white shadow-[0_-8px_40px_rgba(0,45,50,0.12)]">
           <div className="grid gap-10 px-6 py-14 md:grid-cols-2 md:items-start md:gap-16 md:px-10 md:py-16 lg:px-14 lg:py-20">
             <div>
