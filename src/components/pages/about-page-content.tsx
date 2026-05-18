@@ -5,7 +5,7 @@ import { OurNumbersSection } from "@/components/sections/our-numbers-section";
 import { ChairmanMessageSection } from "@/components/sections/chairman-message-section";
 import { WhyMknSection } from "@/components/sections/why-mkn-section";
 import { img } from "@/lib/content/images";
-
+import Image from "next/image";
 export async function AboutPageContent() {
   const t = await getTranslations("About");
   const locale = await getLocale();
@@ -27,7 +27,7 @@ export async function AboutPageContent() {
 
       <section className="bg-white py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 lg:grid-cols-2 lg:gap-20 lg:px-8">
-          <DiamondMedia src={img.eye} alt="" size="lg" />
+          <Image src={img.eye} alt="" width={300} height={400} />
           <div>
             <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-navy md:text-4xl">
               {t("vision")}
@@ -42,7 +42,7 @@ export async function AboutPageContent() {
       <section className="bg-surface py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 lg:grid-cols-2 lg:gap-20 lg:px-8">
           <div className="lg:order-2">
-            <DiamondMedia src={img.target} alt="" size="lg" />
+            <Image src={img.target} alt="" width={300} height={400} />
           </div>
           <div className="lg:order-1">
             <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-navy md:text-4xl">
@@ -57,7 +57,7 @@ export async function AboutPageContent() {
 
       <section className="bg-white py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl items-start gap-14 px-4 lg:grid-cols-2 lg:gap-20 lg:px-8">
-          <DiamondMedia src={img.hands} alt="" size="lg" />
+          <Image src={img.hands} alt="" width={300} height={400} />
           <div>
             <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-navy md:text-4xl">
               {t("values")}
