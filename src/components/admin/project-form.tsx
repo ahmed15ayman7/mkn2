@@ -56,6 +56,8 @@ function buildPayload(form: FormData, amenities: ProjectAmenity[]) {
     deliveryCtaAr: String(form.get("deliveryCtaAr") ?? ""),
     brochureUrl: String(form.get("brochureUrl") ?? ""),
     panoramicImageUrl: String(form.get("panoramicImageUrl") ?? ""),
+    panoramicVideoUrl: String(form.get("panoramicVideoUrl") ?? ""),
+    designGalleryImages: parseImageLines(String(form.get("designGalleryImages") ?? "")),
     coastalTitleEn: String(form.get("coastalTitleEn") ?? ""),
     coastalTitleAr: String(form.get("coastalTitleAr") ?? ""),
     coastalCol1En: String(form.get("coastalCol1En") ?? ""),
@@ -305,7 +307,7 @@ export function ProjectForm({ project }: ProjectFormProps) {
         />
         <div className="grid gap-4 sm:grid-cols-2">
           <AdminInput
-            label="Video URL"
+            label="Delivery section video (YouTube or MP4)"
             name="deliveryVideoUrl"
             type="url"
             defaultValue={project?.deliveryVideoUrl ?? ""}
@@ -328,10 +330,28 @@ export function ProjectForm({ project }: ProjectFormProps) {
           defaultValue={project?.brochureUrl ?? ""}
         />
         <AdminInput
-          label="Panoramic image URL"
+          label="Panoramic / hero video (YouTube URL)"
+          name="panoramicVideoUrl"
+          type="url"
+          placeholder="https://www.youtube.com/watch?v=…"
+          defaultValue={project?.panoramicVideoUrl ?? ""}
+        />
+        <AdminInput
+          label="Panoramic poster image (thumbnail before play)"
           name="panoramicImageUrl"
           type="url"
           defaultValue={project?.panoramicImageUrl ?? ""}
+        />
+      </Section>
+
+      <Section
+        title="Design gallery"
+        description="New design renders shown first in the masonry grid (one URL per line)."
+      >
+        <AdminTextarea
+          label="Design image URLs"
+          name="designGalleryImages"
+          defaultValue={project?.designGalleryImages.join("\n") ?? ""}
         />
       </Section>
 

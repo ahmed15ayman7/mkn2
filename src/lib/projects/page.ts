@@ -2,7 +2,9 @@ import type { Prisma, Project } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import type { ProjectAmenity, ProjectPageView } from "@/lib/projects/types";
 
-export { gallerySlots } from "@/lib/projects/gallery";
+import { mergeProjectGalleryImages } from "@/lib/projects/gallery";
+
+export { gallerySlots, mergeProjectGalleryImages } from "@/lib/projects/gallery";
 
 function pick(locale: string, en: string | null | undefined, ar: string | null | undefined) {
   const value = locale === "ar" ? ar : en;
@@ -55,12 +57,15 @@ export function toProjectPageView(
     variant: a.variant ?? "default",
   }));
 
-  const gallery =
-    project.galleryImages.length > 0
-      ? project.galleryImages
-      : project.images.length > 0
-        ? project.images
-        : [project.coverImage];
+  const gallery = mergeProjectGalleryImages(
+    project.designGalleryImages,
+    project.galleryImages,
+    project.images,
+    project.coverImage,
+  );
+
+  const panoramicVideo = project.panoramicVideoUrl?.trim() || null;
+  const deliveryVideo = project.deliveryVideoUrl?.trim() || null;
 
   const completionYear = project.completionDate
     ? String(project.completionDate.getFullYear())
@@ -83,13 +88,21 @@ export function toProjectPageView(
         (locale === "ar" ? "التسليم" : "DELIVERY"),
       body1: pick(locale, project.deliveryBody1En, project.deliveryBody1Ar),
       body2: pick(locale, project.deliveryBody2En, project.deliveryBody2Ar),
-      videoUrl: project.deliveryVideoUrl ?? project.videoUrl,
+      videoUrl: deliveryVideo,
       ctaLabel:
         pick(locale, project.deliveryCtaEn, project.deliveryCtaAr) ??
         (locale === "ar" ? "تحميل الكتيب" : "Download Brochure"),
       ctaUrl: project.brochureUrl,
     },
-    panoramicImage: project.panoramicImageUrl,
+    panoramicVideo,
+    completionLabel: project.completionDate
+      ? project.completionDate.toLocaleDateString(
+          locale === "ar" ? "ar-SA" : "en-US",
+          { month: "long", day: "numeric", year: "numeric" },
+        )
+      : null,
+    panoramicPoster: project.panoramicImageUrl ?? project.coverImage,
+    designGalleryImages: project.designGalleryImages,
     coastal: {
       title: pick(locale, project.coastalTitleEn, project.coastalTitleAr),
       col1: pick(locale, project.coastalCol1En, project.coastalCol1Ar),
@@ -118,7 +131,7 @@ export function toProjectPageView(
     facilities: {
       title:
         pick(locale, project.facilitiesTitleEn, project.facilitiesTitleAr) ??
-        (locale === "ar" ? "المرافق" : "Amenities"),
+        (locale === "ar" ? "التفاصيل" : "Details"),
       items: facilitiesItems.filter(Boolean),
     },
     closingImage: project.closingImageUrl,

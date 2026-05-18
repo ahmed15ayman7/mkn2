@@ -102,6 +102,8 @@ model Project {
   deliveryCtaAr       String?
   brochureUrl         String?
   panoramicImageUrl   String?
+  panoramicVideoUrl   String?
+  designGalleryImages String[] @default([])
   coastalTitleEn      String?  @db.Text
   coastalTitleAr      String?  @db.Text
   coastalCol1En       String?  @db.Text

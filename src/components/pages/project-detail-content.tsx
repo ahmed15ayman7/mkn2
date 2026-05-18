@@ -1,7 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { ScrollSection } from "@/components/motion/scroll-section";
+import { ProjectPanoramicPoster } from "@/components/media/project-panoramic-poster";
+import { ProjectVideoModal } from "@/components/media/project-video-modal";
+import { ProjectVideoPlayButton } from "@/components/media/project-video-play-button";
 import { buttonVariants } from "@/components/ui/button";
 import { gallerySlots } from "@/lib/projects/gallery";
 import type { ProjectPageView, ProjectAmenityVariant } from "@/lib/projects/types";
@@ -22,14 +26,29 @@ function splitDeliveryTitle(title: string) {
 }
 
 export function ProjectDetailContent({ page }: Props) {
+  const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
   const gallery = gallerySlots(page.galleryImages, page.heroImage);
+  const extraGallery = page.galleryImages.slice(5);
   const splitDelivery = splitDeliveryTitle(page.delivery.title);
   const showLuxuryIntro = Boolean(page.luxury.col1 || page.luxury.col2);
   const showFeatureSection =
     Boolean(page.luxury.title) || showLuxuryIntro || page.amenities.length > 0;
 
+  const openPanoramic = () => {
+    if (page.panoramicVideo) setActiveVideoUrl(page.panoramicVideo);
+  };
+  const openDelivery = () => {
+    if (page.delivery.videoUrl) setActiveVideoUrl(page.delivery.videoUrl);
+  };
+
   return (
     <>
+      <ProjectVideoModal
+        open={activeVideoUrl !== null}
+        videoUrl={activeVideoUrl}
+        title={page.title}
+        onClose={() => setActiveVideoUrl(null)}
+      />
       <ScrollSection preset="project-hero" as="section" className="relative min-h-[70vh]">
         <Image
           src={page.heroImage}
@@ -49,7 +68,22 @@ export function ProjectDetailContent({ page }: Props) {
               height={40}
               className="h-10 w-auto"
             />
-            <h1 className="mt-6 font-serif text-4xl font-bold md:text-5xl">
+            {page.panoramicVideo && (
+              <div className="mt-6">
+                <ProjectVideoPlayButton variant="hero" onClick={openPanoramic} />
+              </div>
+            )}
+            {page.completionLabel && (
+              <p className="mt-4 text-xs uppercase tracking-[0.2em] text-white/55">
+                {page.completionLabel}
+              </p>
+            )}
+            <h1
+              className={cn(
+                "font-serif text-4xl font-bold md:text-5xl",
+                page.panoramicVideo || page.completionLabel ? "mt-4" : "mt-6",
+              )}
+            >
               {page.title}
             </h1>
             {(page.heroSubtitle || page.summary) && (
@@ -70,15 +104,11 @@ export function ProjectDetailContent({ page }: Props) {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-8">
           <div className="flex flex-col gap-6">
             {page.delivery.videoUrl && (
-              <a
-                href={page.delivery.videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex size-14 items-center justify-center self-start rounded-full border-2 border-white/60 text-white transition hover:bg-white/10"
-                aria-label="Play video"
-              >
-                ▶
-              </a>
+              <ProjectVideoPlayButton
+                variant="delivery"
+                onClick={openDelivery}
+                className="self-start"
+              />
             )}
             {page.delivery.body1 && (
               <p className="max-w-prose leading-relaxed text-white/90">
@@ -120,16 +150,12 @@ export function ProjectDetailContent({ page }: Props) {
         </div>
       </ScrollSection>
 
-      {page.panoramicImage && (
-        <div className="relative h-72 w-full md:h-96">
-          <Image
-            src={page.panoramicImage}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
+      {page.panoramicVideo && page.panoramicPoster && (
+        <ProjectPanoramicPoster
+          posterSrc={page.panoramicPoster}
+          title={page.title}
+          onPlay={openPanoramic}
+        />
       )}
 
       <ScrollSection preset="project-gallery" as="section" className="bg-white py-20 md:py-28">
@@ -171,6 +197,19 @@ export function ProjectDetailContent({ page }: Props) {
               <Image src={gallery[4]} alt="" fill className="object-cover" sizes="40vw" />
             </div>
           </div>
+
+          {extraGallery.length > 0 && (
+            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {extraGallery.map((src) => (
+                <div
+                  key={src}
+                  className="relative aspect-[4/3] overflow-hidden rounded-sm"
+                >
+                  <Image src={src} alt="" fill className="object-cover" sizes="33vw" />
+                </div>
+              ))}
+            </div>
+          )}
 
           {(page.coastal.col3 || page.coastal.highlight) && (
             <div className="mt-16 grid gap-10 border-t border-brand-navy/10 pt-12 md:grid-cols-2">
@@ -292,15 +331,15 @@ export function ProjectDetailContent({ page }: Props) {
         <ScrollSection
           preset="project-amenities"
           as="section"
-          className="border-t border-brand-navy/8 bg-white py-16 md:py-20"
+          className="bg-section-sage py-16 text-brand-navy md:py-20"
         >
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             {page.facilities.title && (
-              <h2 className="text-sm font-bold uppercase tracking-[0.22em] text-brand-navy">
+              <h2 className="text-3xl font-bold tracking-tight text-brand-navy md:text-4xl">
                 {page.facilities.title}
               </h2>
             )}
-            <ul className="mt-8 columns-1 gap-x-10 text-sm text-brand-navy/80 sm:columns-2 lg:columns-3">
+            <ul className="mt-10 columns-1 gap-x-12 text-sm text-brand-navy/85 sm:columns-2 lg:columns-4">
               {page.facilities.items.map((item) => (
                 <li key={item} className="mb-3 break-inside-avoid leading-relaxed">
                   {item}

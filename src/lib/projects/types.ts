@@ -17,6 +17,7 @@ export type ProjectPageView = {
   heroImage: string;
   heroSubtitle: string | null;
   completionYear: string | null;
+  completionLabel: string | null;
   delivery: {
     title: string;
     body1: string | null;
@@ -25,7 +26,9 @@ export type ProjectPageView = {
     ctaLabel: string | null;
     ctaUrl: string | null;
   };
-  panoramicImage: string | null;
+  panoramicVideo: string | null;
+  panoramicPoster: string | null;
+  designGalleryImages: string[];
   coastal: {
     title: string | null;
     col1: string | null;

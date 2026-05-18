@@ -31,6 +31,8 @@ export type SerializedProject = {
   deliveryCtaAr: string | null;
   brochureUrl: string | null;
   panoramicImageUrl: string | null;
+  panoramicVideoUrl: string | null;
+  designGalleryImages: string[];
   coastalTitleEn: string | null;
   coastalTitleAr: string | null;
   coastalCol1En: string | null;
@@ -105,6 +107,8 @@ export function serializeProject(
     deliveryCtaAr: project.deliveryCtaAr,
     brochureUrl: project.brochureUrl,
     panoramicImageUrl: project.panoramicImageUrl,
+    panoramicVideoUrl: project.panoramicVideoUrl,
+    designGalleryImages: project.designGalleryImages,
     coastalTitleEn: project.coastalTitleEn,
     coastalTitleAr: project.coastalTitleAr,
     coastalCol1En: project.coastalCol1En,
