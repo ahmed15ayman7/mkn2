@@ -74,7 +74,7 @@ export async function SiteFooter() {
         />
         <div
           className="absolute inset-0 "
-          style={{backgroundImage:"linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.25))"}}
+          style={{backgroundImage:`linear-gradient(to ${!isRtl ? "right" : "left"}, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.25))`}}
           aria-hidden
         />
       </div>
