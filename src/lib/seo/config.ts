@@ -6,7 +6,7 @@ export const SITE_URL = rawSiteUrl.replace(/\/$/, "");
 export const SITE_NAME = "MKN Developments";
 
 export const DEFAULT_OG_IMAGE =
-  process.env.NEXT_PUBLIC_OG_IMAGE_URL ?? `${SITE_URL}/logo-mkn.png`;
+  process.env.NEXT_PUBLIC_OG_IMAGE_URL ?? `${SITE_URL}/logo-mkn-dark.png`;
 
 export const TWITTER_HANDLE = process.env.NEXT_PUBLIC_TWITTER_HANDLE?.trim() || undefined;
 
