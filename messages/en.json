@@ -68,6 +68,9 @@
     "message": "Message",
     "agree": "By submitting, you agree to the Terms & Conditions and Privacy Policy.",
     "submit": "GET A QUOTE",
+    "submitting": "Sending…",
+    "submitSuccess": "Thank you. We received your inquiry and will contact you soon.",
+    "submitError": "Something went wrong. Please try again.",
     "chooseSubject": "Choose a subject",
     "budgetPh": "Less than 1M"
   },

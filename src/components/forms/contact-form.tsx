@@ -11,6 +11,48 @@ const field =
 export function ContactForm() {
   const t = useTranslations("Contact");
   const [agree, setAgree] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!agree) return;
+
+    setError(null);
+    setSuccess(false);
+    setLoading(true);
+
+    const form = new FormData(e.currentTarget);
+    const payload = {
+      firstName: String(form.get("firstName") ?? ""),
+      lastName: String(form.get("lastName") ?? ""),
+      email: String(form.get("email") ?? ""),
+      phone: String(form.get("phone") ?? ""),
+      subject: String(form.get("subject") ?? "") || undefined,
+      targetBudget: String(form.get("budget") ?? "") || undefined,
+      message: String(form.get("message") ?? ""),
+    };
+
+    try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        setError(t("submitError"));
+        return;
+      }
+      setSuccess(true);
+      e.currentTarget.reset();
+      setAgree(false);
+    } catch {
+      setError(t("submitError"));
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <section className="bg-white py-16 md:py-24">
@@ -19,12 +61,7 @@ export function ContactForm() {
         <h2 className="mt-2 text-3xl font-bold tracking-tight text-primary md:text-4xl">
           {t("formTitle")}
         </h2>
-        <form
-          className="mt-10 space-y-6"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
+        <form className="mt-10 space-y-6" onSubmit={onSubmit}>
           <div className="grid gap-6 sm:grid-cols-2">
             <label className="block space-y-2">
               <span className="text-sm font-medium text-primary">
@@ -122,14 +159,25 @@ export function ContactForm() {
             />
             <span>{t("agree")}</span>
           </label>
+          {error && (
+            <p className="text-sm text-red-600" role="alert">
+              {error}
+            </p>
+          )}
+          {success && (
+            <p className="text-sm text-green-700" role="status">
+              {t("submitSuccess")}
+            </p>
+          )}
           <button
             type="submit"
+            disabled={!agree || loading}
             className={cn(
               buttonVariants({ size: "lg" }),
               "h-12 w-full rounded-md sm:w-auto sm:px-12",
             )}
           >
-            {t("submit")}
+            {loading ? t("submitting") : t("submit")}
           </button>
         </form>
       </div>

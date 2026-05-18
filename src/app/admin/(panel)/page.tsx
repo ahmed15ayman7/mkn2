@@ -11,10 +11,20 @@ import {
 } from "@/components/ui/card";
 
 export default async function AdminDashboardPage() {
-  const [userCount, pendingCount, inquiryCount] = await Promise.all([
+  const [
+    userCount,
+    pendingCount,
+    inquiryCount,
+    projectCount,
+    partnerCount,
+    contentCount,
+  ] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { active: false } }),
     prisma.inquiry.count({ where: { status: "NEW" } }),
+    prisma.project.count(),
+    prisma.partner.count(),
+    prisma.globalContent.count(),
   ]);
 
   return (
@@ -25,14 +35,17 @@ export default async function AdminDashboardPage() {
           Manage MKN content, users, and inquiries.
         </p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <StatCard title="Projects" value={projectCount} href="/admin/projects" />
+        <StatCard title="Partners" value={partnerCount} href="/admin/partners" />
+        <StatCard title="Content blocks" value={contentCount} href="/admin/content" />
+        <StatCard title="New inquiries" value={inquiryCount} href="/admin/inquiries" />
         <StatCard title="Admin users" value={userCount} href="/admin/users" />
         <StatCard
           title="Pending activation"
           value={pendingCount}
           href="/admin/users"
         />
-        <StatCard title="New inquiries" value={inquiryCount} />
       </div>
       <Card>
         <CardHeader>

@@ -25,9 +25,33 @@ export default async function AdminPanelLayout({
             <Link href="/admin" className="font-semibold text-primary">
               MKN Admin
             </Link>
-            <nav className="flex gap-4 text-sm">
+            <nav className="flex flex-wrap gap-4 text-sm">
               <Link href="/admin" className="text-primary/80 hover:text-primary">
                 Dashboard
+              </Link>
+              <Link
+                href="/admin/projects"
+                className="text-primary/80 hover:text-primary"
+              >
+                Projects
+              </Link>
+              <Link
+                href="/admin/partners"
+                className="text-primary/80 hover:text-primary"
+              >
+                Partners
+              </Link>
+              <Link
+                href="/admin/content"
+                className="text-primary/80 hover:text-primary"
+              >
+                Content
+              </Link>
+              <Link
+                href="/admin/inquiries"
+                className="text-primary/80 hover:text-primary"
+              >
+                Inquiries
               </Link>
               <Link
                 href="/admin/users"
