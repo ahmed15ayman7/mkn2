@@ -36,7 +36,6 @@ COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder /app/node_modules/dotenv ./node_modules/dotenv
 
-RUN chmod +x ./docker-entrypoint.sh
 
 USER nextjs
 EXPOSE 3000
