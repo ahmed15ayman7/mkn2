@@ -3,6 +3,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { ImageSlider } from "@/components/media/image-slider";
 import { VideoHeroBackdrop } from "@/components/media/video-hero-backdrop";
 import { HomeWhoWeAreSection } from "@/components/sections/home-who-we-are-section";
+import { PartnersSection } from "@/components/sections/partners-section";
 import { SectionMarquee } from "@/components/sections/section-marquee";
 import {
   featuredSliderImages,
@@ -154,23 +155,11 @@ export async function HomePageContent() {
         </div>
       </section>
 
-      <section className="border-b border-brand-navy/10 bg-white py-14 md:py-16">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="flex flex-wrap items-center gap-8 md:gap-12">
-            <h2 className="shrink-0 text-lg font-bold text-brand-navy">
-              {t("partnersTitle")}
-            </h2>
-            <div className="flex flex-1 flex-wrap items-center justify-center gap-10 md:justify-start md:gap-16">
-              <span className="text-xl font-bold tracking-[0.35em] text-brand-navy/40">
-                GROHE
-              </span>
-              <span className="text-lg font-bold text-brand-navy/50" lang="ar">
-                حديد اليمامة
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PartnersSection
+        kicker={t("partnersKicker")}
+        title={t("partnersTitle")}
+        isRtl={locale === "ar"}
+      />
     </>
   );
 }
