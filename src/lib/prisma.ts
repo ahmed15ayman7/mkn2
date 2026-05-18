@@ -10,6 +10,7 @@ const globalForPrisma = globalThis as unknown as {
 function createPrismaClient(): PrismaClient {
   const connectionString =
     process.env.DATABASE_URL ??
+    process.env.DATABASE_URI ??
     "postgresql://mkn:mkn@localhost:5432/mkn?schema=public";
 
   const pool = globalForPrisma.pool ?? new Pool({ connectionString });
