@@ -62,20 +62,32 @@ export function toProjectPageView(
         ? project.images
         : [project.coverImage];
 
+  const completionYear = project.completionDate
+    ? String(project.completionDate.getFullYear())
+    : null;
+
+  const facilitiesItems =
+    locale === "ar" ? project.facilitiesAr : project.facilitiesEn;
+
   return {
     slug: project.slug,
     title: pickRequired(locale, project.titleEn, project.titleAr),
+    summary: pickRequired(locale, project.descEn, project.descAr),
     location: pickRequired(locale, project.locationEn, project.locationAr),
     heroImage: project.coverImage,
     heroSubtitle: pick(locale, project.heroSubtitleEn, project.heroSubtitleAr),
+    completionYear,
     delivery: {
       title:
         pick(locale, project.deliveryTitleEn, project.deliveryTitleAr) ??
         (locale === "ar" ? "التسليم" : "DELIVERY"),
       body1: pick(locale, project.deliveryBody1En, project.deliveryBody1Ar),
       body2: pick(locale, project.deliveryBody2En, project.deliveryBody2Ar),
-      videoUrl: project.deliveryVideoUrl,
-      ctaLabel: pick(locale, project.deliveryCtaEn, project.deliveryCtaAr),
+      videoUrl: project.deliveryVideoUrl ?? project.videoUrl,
+      ctaLabel:
+        pick(locale, project.deliveryCtaEn, project.deliveryCtaAr) ??
+        (locale === "ar" ? "تحميل الكتيب" : "Download Brochure"),
+      ctaUrl: project.brochureUrl,
     },
     panoramicImage: project.panoramicImageUrl,
     coastal: {
@@ -92,13 +104,22 @@ export function toProjectPageView(
     galleryImages: gallery,
     map: {
       image: project.mapImageUrl,
-      label: pick(locale, project.locationLabelEn, project.locationLabelAr),
+      logoUrl: project.mapLogoUrl,
+      label:
+        pick(locale, project.locationLabelEn, project.locationLabelAr) ??
+        (locale === "ar" ? "الموقع" : "Location"),
       blurb: pick(locale, project.locationBlurbEn, project.locationBlurbAr),
     },
     luxury: {
       title: pick(locale, project.luxuryTitleEn, project.luxuryTitleAr),
       col1: pick(locale, project.luxuryCol1En, project.luxuryCol1Ar),
       col2: pick(locale, project.luxuryCol2En, project.luxuryCol2Ar),
+    },
+    facilities: {
+      title:
+        pick(locale, project.facilitiesTitleEn, project.facilitiesTitleAr) ??
+        (locale === "ar" ? "المرافق" : "Amenities"),
+      items: facilitiesItems.filter(Boolean),
     },
     closingImage: project.closingImageUrl,
     amenities,

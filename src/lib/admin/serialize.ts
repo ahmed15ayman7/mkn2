@@ -29,6 +29,7 @@ export type SerializedProject = {
   deliveryVideoUrl: string | null;
   deliveryCtaEn: string | null;
   deliveryCtaAr: string | null;
+  brochureUrl: string | null;
   panoramicImageUrl: string | null;
   coastalTitleEn: string | null;
   coastalTitleAr: string | null;
@@ -42,6 +43,7 @@ export type SerializedProject = {
   coastalHighlightAr: string | null;
   galleryImages: string[];
   mapImageUrl: string | null;
+  mapLogoUrl: string | null;
   locationBlurbEn: string | null;
   locationBlurbAr: string | null;
   locationLabelEn: string | null;
@@ -53,6 +55,10 @@ export type SerializedProject = {
   luxuryCol2En: string | null;
   luxuryCol2Ar: string | null;
   closingImageUrl: string | null;
+  facilitiesTitleEn: string | null;
+  facilitiesTitleAr: string | null;
+  facilitiesEn: string[];
+  facilitiesAr: string[];
   amenities: ProjectAmenity[];
   seo: {
     metaTitleAr: string;
@@ -97,6 +103,7 @@ export function serializeProject(
     deliveryVideoUrl: project.deliveryVideoUrl,
     deliveryCtaEn: project.deliveryCtaEn,
     deliveryCtaAr: project.deliveryCtaAr,
+    brochureUrl: project.brochureUrl,
     panoramicImageUrl: project.panoramicImageUrl,
     coastalTitleEn: project.coastalTitleEn,
     coastalTitleAr: project.coastalTitleAr,
@@ -110,6 +117,7 @@ export function serializeProject(
     coastalHighlightAr: project.coastalHighlightAr,
     galleryImages: project.galleryImages,
     mapImageUrl: project.mapImageUrl,
+    mapLogoUrl: project.mapLogoUrl,
     locationBlurbEn: project.locationBlurbEn,
     locationBlurbAr: project.locationBlurbAr,
     locationLabelEn: project.locationLabelEn,
@@ -121,6 +129,10 @@ export function serializeProject(
     luxuryCol2En: project.luxuryCol2En,
     luxuryCol2Ar: project.luxuryCol2Ar,
     closingImageUrl: project.closingImageUrl,
+    facilitiesTitleEn: project.facilitiesTitleEn,
+    facilitiesTitleAr: project.facilitiesTitleAr,
+    facilitiesEn: project.facilitiesEn,
+    facilitiesAr: project.facilitiesAr,
     amenities: parseAmenitiesJson(project.amenities),
     seo: project.seo
       ? {

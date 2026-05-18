@@ -69,6 +69,7 @@ export const projectBodySchema = z.object({
   deliveryVideoUrl: optionalUrl,
   deliveryCtaEn: optionalText,
   deliveryCtaAr: optionalText,
+  brochureUrl: optionalUrl,
   panoramicImageUrl: optionalUrl,
   coastalTitleEn: optionalText,
   coastalTitleAr: optionalText,
@@ -82,6 +83,7 @@ export const projectBodySchema = z.object({
   coastalHighlightAr: optionalText,
   galleryImages: z.array(z.string().url()).optional(),
   mapImageUrl: optionalUrl,
+  mapLogoUrl: optionalUrl,
   locationBlurbEn: optionalText,
   locationBlurbAr: optionalText,
   locationLabelEn: optionalText,
@@ -93,6 +95,10 @@ export const projectBodySchema = z.object({
   luxuryCol2En: optionalText,
   luxuryCol2Ar: optionalText,
   closingImageUrl: optionalUrl,
+  facilitiesTitleEn: optionalText,
+  facilitiesTitleAr: optionalText,
+  facilitiesEn: z.array(z.string().min(1)).optional(),
+  facilitiesAr: z.array(z.string().min(1)).optional(),
   amenities: z.array(projectAmenitySchema).optional(),
 });
 
@@ -129,6 +135,13 @@ export const inquiryStatusSchema = z.object({
 });
 
 export function parseImageLines(text: string): string[] {
+  return text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
+export function parseFacilityLines(text: string): string[] {
   return text
     .split(/\r?\n/)
     .map((line) => line.trim())

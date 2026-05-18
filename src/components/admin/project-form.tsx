@@ -12,7 +12,7 @@ import {
 } from "@/components/admin/admin-field";
 import type { SerializedProject } from "@/lib/admin/serialize";
 import type { ProjectAmenity } from "@/lib/projects/types";
-import { parseImageLines } from "@/lib/validation/admin";
+import { parseFacilityLines, parseImageLines } from "@/lib/validation/admin";
 import { cn } from "@/lib/utils";
 
 type ProjectFormProps = {
@@ -54,6 +54,7 @@ function buildPayload(form: FormData, amenities: ProjectAmenity[]) {
     deliveryVideoUrl: String(form.get("deliveryVideoUrl") ?? ""),
     deliveryCtaEn: String(form.get("deliveryCtaEn") ?? ""),
     deliveryCtaAr: String(form.get("deliveryCtaAr") ?? ""),
+    brochureUrl: String(form.get("brochureUrl") ?? ""),
     panoramicImageUrl: String(form.get("panoramicImageUrl") ?? ""),
     coastalTitleEn: String(form.get("coastalTitleEn") ?? ""),
     coastalTitleAr: String(form.get("coastalTitleAr") ?? ""),
@@ -67,6 +68,7 @@ function buildPayload(form: FormData, amenities: ProjectAmenity[]) {
     coastalHighlightAr: String(form.get("coastalHighlightAr") ?? ""),
     galleryImages: parseImageLines(String(form.get("galleryImages") ?? "")),
     mapImageUrl: String(form.get("mapImageUrl") ?? ""),
+    mapLogoUrl: String(form.get("mapLogoUrl") ?? ""),
     locationBlurbEn: String(form.get("locationBlurbEn") ?? ""),
     locationBlurbAr: String(form.get("locationBlurbAr") ?? ""),
     locationLabelEn: String(form.get("locationLabelEn") ?? ""),
@@ -78,6 +80,10 @@ function buildPayload(form: FormData, amenities: ProjectAmenity[]) {
     luxuryCol2En: String(form.get("luxuryCol2En") ?? ""),
     luxuryCol2Ar: String(form.get("luxuryCol2Ar") ?? ""),
     closingImageUrl: String(form.get("closingImageUrl") ?? ""),
+    facilitiesTitleEn: String(form.get("facilitiesTitleEn") ?? ""),
+    facilitiesTitleAr: String(form.get("facilitiesTitleAr") ?? ""),
+    facilitiesEn: parseFacilityLines(String(form.get("facilitiesEn") ?? "")),
+    facilitiesAr: parseFacilityLines(String(form.get("facilitiesAr") ?? "")),
     amenities: filteredAmenities,
   };
 }
@@ -316,6 +322,12 @@ export function ProjectForm({ project }: ProjectFormProps) {
           defaultValue={project?.deliveryCtaAr ?? ""}
         />
         <AdminInput
+          label="Brochure / CTA URL"
+          name="brochureUrl"
+          type="url"
+          defaultValue={project?.brochureUrl ?? ""}
+        />
+        <AdminInput
           label="Panoramic image URL"
           name="panoramicImageUrl"
           type="url"
@@ -390,6 +402,12 @@ export function ProjectForm({ project }: ProjectFormProps) {
           type="url"
           defaultValue={project?.mapImageUrl ?? ""}
         />
+        <AdminInput
+          label="Map overlay logo URL"
+          name="mapLogoUrl"
+          type="url"
+          defaultValue={project?.mapLogoUrl ?? ""}
+        />
         <div className="grid gap-4 sm:grid-cols-2">
           <AdminInput
             label="Label (EN)"
@@ -414,41 +432,75 @@ export function ProjectForm({ project }: ProjectFormProps) {
         />
       </Section>
 
-      <Section title="Luxury section">
+      <Section
+        title="Features section"
+        description="Heading above the 3×2 feature cards. Optional intro columns render above the grid when filled."
+      >
         <AdminTextarea
-          label="Title (EN)"
+          label="Section title (EN)"
           name="luxuryTitleEn"
+          placeholder="Where luxury meets the dynamic choice"
           defaultValue={project?.luxuryTitleEn ?? ""}
         />
         <AdminTextarea
-          label="Title (AR)"
+          label="Section title (AR)"
           name="luxuryTitleAr"
           defaultValue={project?.luxuryTitleAr ?? ""}
         />
         <AdminTextarea
-          label="Column 1 (EN)"
+          label="Intro column 1 (EN)"
           name="luxuryCol1En"
           defaultValue={project?.luxuryCol1En ?? ""}
         />
         <AdminTextarea
-          label="Column 1 (AR)"
+          label="Intro column 1 (AR)"
           name="luxuryCol1Ar"
           defaultValue={project?.luxuryCol1Ar ?? ""}
         />
         <AdminTextarea
-          label="Column 2 (EN)"
+          label="Intro column 2 (EN)"
           name="luxuryCol2En"
           defaultValue={project?.luxuryCol2En ?? ""}
         />
         <AdminTextarea
-          label="Column 2 (AR)"
+          label="Intro column 2 (AR)"
           name="luxuryCol2Ar"
           defaultValue={project?.luxuryCol2Ar ?? ""}
         />
       </Section>
 
-      <Section title="Amenity cards (3×2 grid)">
+      <Section title="Feature cards (3×2 grid)">
         <ProjectAmenitiesEditor value={amenities} onChange={setAmenities} />
+      </Section>
+
+      <Section
+        title="Facilities list"
+        description="Multi-column text list below the feature cards (one facility per line)."
+      >
+        <div className="grid gap-4 sm:grid-cols-2">
+          <AdminInput
+            label="Section title (EN)"
+            name="facilitiesTitleEn"
+            placeholder="Amenities"
+            defaultValue={project?.facilitiesTitleEn ?? ""}
+          />
+          <AdminInput
+            label="Section title (AR)"
+            name="facilitiesTitleAr"
+            placeholder="المرافق"
+            defaultValue={project?.facilitiesTitleAr ?? ""}
+          />
+        </div>
+        <AdminTextarea
+          label="Facilities (EN, one per line)"
+          name="facilitiesEn"
+          defaultValue={project?.facilitiesEn.join("\n") ?? ""}
+        />
+        <AdminTextarea
+          label="Facilities (AR, one per line)"
+          name="facilitiesAr"
+          defaultValue={project?.facilitiesAr.join("\n") ?? ""}
+        />
       </Section>
 
       <Section title="Closing image">

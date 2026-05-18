@@ -100,6 +100,7 @@ model Project {
   deliveryVideoUrl    String?
   deliveryCtaEn       String?
   deliveryCtaAr       String?
+  brochureUrl         String?
   panoramicImageUrl   String?
   coastalTitleEn      String?  @db.Text
   coastalTitleAr      String?  @db.Text
@@ -113,6 +114,7 @@ model Project {
   coastalHighlightAr  String?  @db.Text
   galleryImages       String[] @default([])
   mapImageUrl         String?
+  mapLogoUrl          String?
   locationBlurbEn     String?  @db.Text
   locationBlurbAr     String?  @db.Text
   locationLabelEn     String?
@@ -124,6 +126,10 @@ model Project {
   luxuryCol2En        String?  @db.Text
   luxuryCol2Ar        String?  @db.Text
   closingImageUrl     String?
+  facilitiesTitleEn   String?
+  facilitiesTitleAr   String?
+  facilitiesEn        String[] @default([])
+  facilitiesAr        String[] @default([])
   /// [{ titleEn, titleAr, descEn, descAr, imageUrl?, variant? }]
   amenities           Json     @default("[]")
 

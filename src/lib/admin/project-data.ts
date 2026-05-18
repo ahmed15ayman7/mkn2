@@ -19,6 +19,7 @@ function pageFields(
   | "deliveryVideoUrl"
   | "deliveryCtaEn"
   | "deliveryCtaAr"
+  | "brochureUrl"
   | "panoramicImageUrl"
   | "coastalTitleEn"
   | "coastalTitleAr"
@@ -32,6 +33,7 @@ function pageFields(
   | "coastalHighlightAr"
   | "galleryImages"
   | "mapImageUrl"
+  | "mapLogoUrl"
   | "locationBlurbEn"
   | "locationBlurbAr"
   | "locationLabelEn"
@@ -43,6 +45,10 @@ function pageFields(
   | "luxuryCol2En"
   | "luxuryCol2Ar"
   | "closingImageUrl"
+  | "facilitiesTitleEn"
+  | "facilitiesTitleAr"
+  | "facilitiesEn"
+  | "facilitiesAr"
   | "amenities"
 > {
   return {
@@ -57,6 +63,7 @@ function pageFields(
     deliveryVideoUrl: data.deliveryVideoUrl ?? undefined,
     deliveryCtaEn: data.deliveryCtaEn ?? undefined,
     deliveryCtaAr: data.deliveryCtaAr ?? undefined,
+    brochureUrl: data.brochureUrl ?? undefined,
     panoramicImageUrl: data.panoramicImageUrl ?? undefined,
     coastalTitleEn: data.coastalTitleEn ?? undefined,
     coastalTitleAr: data.coastalTitleAr ?? undefined,
@@ -70,6 +77,7 @@ function pageFields(
     coastalHighlightAr: data.coastalHighlightAr ?? undefined,
     galleryImages: data.galleryImages ?? [],
     mapImageUrl: data.mapImageUrl ?? undefined,
+    mapLogoUrl: data.mapLogoUrl ?? undefined,
     locationBlurbEn: data.locationBlurbEn ?? undefined,
     locationBlurbAr: data.locationBlurbAr ?? undefined,
     locationLabelEn: data.locationLabelEn ?? undefined,
@@ -81,6 +89,10 @@ function pageFields(
     luxuryCol2En: data.luxuryCol2En ?? undefined,
     luxuryCol2Ar: data.luxuryCol2Ar ?? undefined,
     closingImageUrl: data.closingImageUrl ?? undefined,
+    facilitiesTitleEn: data.facilitiesTitleEn ?? undefined,
+    facilitiesTitleAr: data.facilitiesTitleAr ?? undefined,
+    facilitiesEn: data.facilitiesEn ?? [],
+    facilitiesAr: data.facilitiesAr ?? [],
     amenities: (data.amenities ?? []) as Prisma.InputJsonValue,
   };
 }

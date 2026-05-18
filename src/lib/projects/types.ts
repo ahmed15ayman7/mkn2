@@ -12,15 +12,18 @@ export type ProjectAmenity = {
 export type ProjectPageView = {
   slug: string;
   title: string;
+  summary: string;
   location: string;
   heroImage: string;
   heroSubtitle: string | null;
+  completionYear: string | null;
   delivery: {
     title: string;
     body1: string | null;
     body2: string | null;
     videoUrl: string | null;
     ctaLabel: string | null;
+    ctaUrl: string | null;
   };
   panoramicImage: string | null;
   coastal: {
@@ -33,6 +36,7 @@ export type ProjectPageView = {
   galleryImages: string[];
   map: {
     image: string | null;
+    logoUrl: string | null;
     label: string | null;
     blurb: string | null;
   };
@@ -40,6 +44,10 @@ export type ProjectPageView = {
     title: string | null;
     col1: string | null;
     col2: string | null;
+  };
+  facilities: {
+    title: string | null;
+    items: string[];
   };
   closingImage: string | null;
   amenities: {
