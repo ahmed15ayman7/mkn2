@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { fontAr, fontEn, fontQuote } from "@/lib/fonts";
+import { fontAr, fontEn, fontQuote, fontSignature } from "@/lib/fonts";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -41,7 +41,13 @@ export default async function LocaleLayout({ children, params }: Props) {
       lang={locale}
       dir={dir}
       suppressHydrationWarning
-      className={cn("h-full", fontEn.variable, fontAr.variable, fontQuote.variable)}
+      className={cn(
+        "h-full",
+        fontEn.variable,
+        fontAr.variable,
+        fontQuote.variable,
+        fontSignature.variable,
+      )}
     >
       <body
         className={`min-h-full flex flex-col antialiased ${

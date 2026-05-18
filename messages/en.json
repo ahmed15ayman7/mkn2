@@ -27,6 +27,8 @@
   },
   "About": {
     "title": "About Us",
+    "heroTagline": "Where quality meets modern living.",
+    "aboutKicker": "// ABOUT MKN",
     "aboutLabel": "ABOUT US",
     "whoHeading": "WHO WE ARE",
     "crumb": "ABOUT US / WHO WE ARE",
@@ -43,7 +45,12 @@
     "v4": "Customer-Centric",
     "v5": "Sustainability",
     "why": "WHY MKN",
+    "whyKicker": "// WHERE QUALITY, INNOVATION, AND VALUE COME TOGETHER.",
+    "whyP1": "We combine experience, innovation, and a deep understanding of the market to deliver developments that stand out.",
+    "whyP2": "Our projects are carefully planned to offer both a premium lifestyle and strong investment potential.",
+    "scrollToTop": "Scroll to top",
     "whyText": "Deep experience, transparent partnerships, and design that resonates with discerning residents and investors.",
+    "chairLeadership": "A Message from Leadership",
     "chairTitle": "Chairman's Message",
     "quote": "At MKN, we focus on creating developments that combine quality, innovation, and long-term value. Our goal is to build communities that enhance lifestyles and offer meaningful investment opportunities.",
     "chairName": "Amr Kamel"
@@ -139,17 +146,19 @@
     "deliverWord": "DELIVER"
   },
   "Footer": {
-    "phone1": "0555547555",
-    "phone2": "0138691222",
-    "email": "hr@mkn.sa",
-    "about": "A Saudi real estate developer focused on quality execution and contemporary communities in strategic locations.",
+    "about": "MKN® is a Saudi real estate developer focused on creating modern residential and commercial projects that combine innovation, quality, and strategic locations to deliver exceptional living and investment opportunities.",
     "quick": "Quick Links",
     "office": "Head Office",
-    "home": "Home",
-    "projects": "Projects",
     "aboutL": "About Us",
+    "projects": "Projects",
+    "team": "Our Team",
     "careers": "Careers",
+    "blogs": "Blogs",
     "contact": "Contact Us",
-    "rights": "All rights reserved by MKN Developments"
+    "address": "4679 Prince Muqrin St., Madinat Al Umal, Al Khobar 34621, KSA.",
+    "email": "hello@mkn.sa",
+    "phones": "0138691222 - 0556647666",
+    "rights": "All rights reserved by MKN Developments",
+    "designedBy": "Designed by Real Agency."
   }
 }

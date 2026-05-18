@@ -1,4 +1,4 @@
-import { Cairo, Montserrat, Amiri } from "next/font/google";
+import { Amiri, Cairo, Great_Vibes, Montserrat } from "next/font/google";
 
 export const fontEn = Montserrat({
   subsets: ["latin"],
@@ -17,4 +17,11 @@ export const fontQuote = Amiri({
   weight: ["400", "700"],
   display: "swap",
   variable: "--font-quote",
+});
+
+export const fontSignature = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-signature",
 });

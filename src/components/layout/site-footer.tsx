@@ -1,121 +1,199 @@
-import { Mail, MapPin, Phone } from "lucide-react";
-import { getTranslations } from "next-intl/server";
-import { MknLogo } from "@/components/brand/mkn-logo";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, Mail, MapPin, Phone } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 import {
   IconFacebook,
   IconInstagram,
   IconLinkedin,
+  IconTiktok,
+  IconX,
   IconYoutube,
 } from "@/components/icons/social-icons";
 import { Link } from "@/i18n/navigation";
+import { img } from "@/lib/content/images";
+import { cn } from "@/lib/utils";
 
 const social = [
   { Icon: IconFacebook, href: "https://facebook.com", label: "Facebook" },
   { Icon: IconInstagram, href: "https://instagram.com", label: "Instagram" },
   { Icon: IconLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { Icon: IconTiktok, href: "https://tiktok.com", label: "TikTok" },
   { Icon: IconYoutube, href: "https://youtube.com", label: "YouTube" },
+  { Icon: IconX, href: "https://x.com", label: "X" },
 ] as const;
+
+const quickLinks = [
+  { key: "aboutL" as const, href: "/about" as const },
+  { key: "projects" as const, href: "/projects" as const },
+  { key: "team" as const, href: null },
+  { key: "careers" as const, href: null },
+  { key: "blogs" as const, href: null },
+  { key: "contact" as const, href: "/contact" as const },
+];
+
+function FooterColumn({
+  children,
+  className,
+  withDivider = true,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  withDivider?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "px-0 md:px-8 lg:px-10",
+        withDivider &&
+          "md:border-e md:border-white/10 md:last:border-e-0",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
 
 export async function SiteFooter() {
   const t = await getTranslations("Footer");
+  const locale = await getLocale();
+  const isRtl = locale === "ar";
+  const Chevron = isRtl ? ChevronLeft : ChevronRight;
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-footer-grid text-white">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="space-y-4">
-            <MknLogo variant="gold" className="h-12 w-12" />
-            <p className="max-w-xs text-sm leading-relaxed text-white/75">
+    <footer className="relative text-white">
+      <div className="pointer-events-none absolute inset-0">
+        <Image
+          src={img.footerBg}
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          priority={false}
+        />
+        <div
+          className="absolute inset-0 bg-brand-navy/25"
+          aria-hidden
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+          <FooterColumn withDivider className="md:ps-0">
+            <Link href="/" className="inline-block">
+              <Image
+                src="/logo-mkn.png"
+                alt="MKN Developments"
+                width={120}
+                height={140}
+                className="h-auto w-[108px] sm:w-[120px]"
+              />
+            </Link>
+          </FooterColumn>
+
+          <FooterColumn>
+            <p className="max-w-sm text-sm leading-relaxed text-white/90">
               {t("about")}
             </p>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
+          </FooterColumn>
+
+          <FooterColumn>
+            <h3 className="text-sm font-semibold text-brand-gold">
               {t("quick")}
             </h3>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/"
-                  className="text-white/75 transition-colors hover:text-white"
-                >
-                  {t("home")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects"
-                  className="text-white/75 transition-colors hover:text-white"
-                >
-                  {t("projects")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="text-white/75 transition-colors hover:text-white"
-                >
-                  {t("aboutL")}
-                </Link>
-              </li>
-              <li>
-                <span className="text-white/40">{t("careers")}</span>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-white/75 transition-colors hover:text-white"
-                >
-                  {t("contact")}
-                </Link>
-              </li>
+            <ul className="mt-5 space-y-3">
+              {quickLinks.map(({ key, href }) => {
+                const label = t(key);
+                const row = (
+                  <>
+                    <Chevron
+                      className="size-3.5 shrink-0 text-brand-gold"
+                      strokeWidth={2.5}
+                      aria-hidden
+                    />
+                    <span>{label}</span>
+                  </>
+                );
+
+                return (
+                  <li key={key}>
+                    {href ? (
+                      <Link
+                        href={href}
+                        className="flex items-center gap-2.5 text-sm text-white/90 transition-colors hover:text-white"
+                      >
+                        {row}
+                      </Link>
+                    ) : (
+                      <span className="flex items-center gap-2.5 text-sm text-white/55">
+                        {row}
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
+          </FooterColumn>
+
+          <FooterColumn withDivider={false} className="md:pe-0">
+            <h3 className="text-sm font-semibold text-brand-gold">
               {t("office")}
             </h3>
-            <ul className="mt-4 space-y-4 text-sm text-white/75">
-              <li className="flex gap-2">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-accent" />
-                <span>Al Khobar, Eastern Province, Saudi Arabia</span>
+            <ul className="mt-5 space-y-4 text-sm leading-relaxed text-white/90">
+              <li className="flex gap-3">
+                <MapPin
+                  className="mt-0.5 size-4 shrink-0 text-brand-gold"
+                  strokeWidth={1.75}
+                />
+                <span>{t("address")}</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="size-4 shrink-0 text-accent" />
-                <span dir="ltr">{t("phone1")}</span>
-              </li>
-              <li className="flex items-center gap-2" dir="ltr">
-                <Phone className="size-4 shrink-0 text-accent" />
-                <span>{t("phone2")}</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="size-4 shrink-0 text-accent" />
-                <a href={`mailto:${t("email")}`} className="hover:text-white">
+              <li className="flex gap-3">
+                <Mail
+                  className="mt-0.5 size-4 shrink-0 text-brand-gold"
+                  strokeWidth={1.75}
+                />
+                <a
+                  href={`mailto:${t("email")}`}
+                  className="transition-colors hover:text-white"
+                  dir="ltr"
+                >
                   {t("email")}
                 </a>
               </li>
+              <li className="flex gap-3">
+                <Phone
+                  className="mt-0.5 size-4 shrink-0 text-brand-gold"
+                  strokeWidth={1.75}
+                />
+                <span dir="ltr">{t("phones")}</span>
+              </li>
             </ul>
-          </div>
-          <div className="flex flex-col gap-4 lg:items-end">
-            <div className="flex flex-wrap gap-3">
-              {social.map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-accent/50 p-2 text-accent transition-colors hover:bg-accent/10"
-                  aria-label={label}
-                >
-                  <Icon className="size-5" />
-                </a>
-              ))}
+
+            <div className="mt-8 border-t border-brand-gold/45 pt-8">
+              <div className="flex flex-wrap items-center gap-4">
+                {social.map(({ Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-gold transition-opacity hover:opacity-80"
+                    aria-label={label}
+                  >
+                    <Icon className="size-5" />
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          </FooterColumn>
         </div>
       </div>
-      <div className="border-t border-white/10 py-4 text-center text-xs text-white/50">
-        © {new Date().getFullYear()}. {t("rights")}
+
+      <div className="relative z-10 bg-black py-4 text-center text-xs text-white/70">
+        <p>
+          ©{year}. {t("rights")} | {t("designedBy")}
+        </p>
       </div>
     </footer>
   );

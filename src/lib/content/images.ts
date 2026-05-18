@@ -27,15 +27,19 @@ export const img = {
   patio:
     "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=80",
   chairman:
-    "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80",
+    "https://real.com.eg/mkn/wp-content/uploads/2025/09/oh__demo34__35.webp",
   mapAbstract:
     "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=2000&q=80",
   eye:
-    "https://images.unsplash.com/photo-1499951360447-bbebe802660b?auto=format&fit=crop&w=800&q=80",
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-ourvision-1536x1536.jpeg",
   target:
-    "https://images.unsplash.com/photo-1523289333742-be1143f6b766?auto=format&fit=crop&w=800&q=80",
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-ourmission-1536x1536.jpeg",
   hands:
-    "https://images.unsplash.com/photo-1573497019940-1c28c88b33f3?auto=format&fit=crop&w=800&q=80",
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-ourvalue-1536x1536.jpeg",
+  whyBg:
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-footer.jpeg",
+  footerBg:
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-footer.jpeg",
   resumeDesk:
     "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=2000&q=80",
 } as const;
