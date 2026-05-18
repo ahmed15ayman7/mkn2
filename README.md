@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MKN Developments — web + CMS (Step 1 scaffold)
 
-## Getting Started
+## Requirements
 
-First, run the development server:
+- Node.js ≥ 20.9
+- PostgreSQL (local or hosted)
+
+## Database
+
+Example connection string (matches `.env.example`):
+
+`postgresql://mkn:mkn@localhost:5432/mkn?schema=public`
+
+With Docker: `docker compose up -d`, then create `.env` from `.env.example`, then:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run db:migrate
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Prisma **7** uses the [`@prisma/adapter-pg`](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/postgresql) driver adapter (`src/lib/prisma.ts`). Ensure `DATABASE_URL` is set for all commands that open a DB connection.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The initial migration is committed under `prisma/migrations/`. On a fresh server you can run:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npx prisma migrate deploy
+```
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
+Copy `.env.example` to `.env` and set `DATABASE_URL`. Optional: `NEXT_PUBLIC_IMAGE_ALLOWLIST` for additional `next/image` remote hosts (comma-separated hostnames, HTTPS). `NEXT_PUBLIC_HERO_VIDEO_URL` defaults to the MKN hero MP4 in code and in the example file.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` — development server
+- `npm run build` — production build
+- `npm run db:generate` — `prisma generate`
+- `npm run db:migrate` — `prisma migrate dev` (needs local Postgres)
+- `npm run db:push` — `prisma db push` (prototyping only)
+# mkn2
