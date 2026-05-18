@@ -6,10 +6,57 @@ type Thumb = { src: string; caption: string };
 export function HomeDiamondCollage({
   thumbs,
   className,
+  variant = "stacked",
 }: {
   thumbs: readonly Thumb[];
   className?: string;
+  variant?: "stacked" | "cross";
 }) {
+  if (variant === "cross") {
+    const items = thumbs.slice(0, 4);
+    return (
+      <div
+        className={cn(
+          "relative mx-auto aspect-square w-full max-w-sm sm:max-w-md lg:max-w-lg",
+          className,
+        )}
+      >
+        {items[0] && (
+          <DiamondFrame
+            src={items[0].src}
+            alt={items[0].caption}
+            framed
+            className="absolute start-1/2 top-[2%] z-10 w-[38%] -translate-x-1/2"
+          />
+        )}
+        {items[1] && (
+          <DiamondFrame
+            src={items[1].src}
+            alt={items[1].caption}
+            framed
+            className="absolute start-[4%] top-1/2 z-20 w-[38%] -translate-y-1/2"
+          />
+        )}
+        {items[2] && (
+          <DiamondFrame
+            src={items[2].src}
+            alt={items[2].caption}
+            framed
+            className="absolute end-[4%] top-1/2 z-20 w-[38%] -translate-y-1/2"
+          />
+        )}
+        {items[3] && (
+          <DiamondFrame
+            src={items[3].src}
+            alt={items[3].caption}
+            framed
+            className="absolute bottom-[2%] start-1/2 z-10 w-[38%] -translate-x-1/2"
+          />
+        )}
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(
@@ -40,11 +87,25 @@ function DiamondFrame({
   src,
   alt,
   className,
+  framed = false,
 }: {
   src: string;
   alt: string;
   className?: string;
+  framed?: boolean;
 }) {
+  if (framed) {
+    return (
+      <div className={cn("relative aspect-square w-full", className)}>
+        <div className="relative size-full clip-diamond bg-[#b8a278] p-[3px]">
+          <div className="relative size-full clip-diamond overflow-hidden">
+            <Image src={src} alt={alt} fill className="object-cover" sizes="240px" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(

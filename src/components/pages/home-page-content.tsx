@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
 import { ImageSlider } from "@/components/media/image-slider";
 import { VideoHeroBackdrop } from "@/components/media/video-hero-backdrop";
-import { HomeDiamondCollage } from "@/components/sections/home-diamond-collage";
+import { HomeWhoWeAreSection } from "@/components/sections/home-who-we-are-section";
 import { SectionMarquee } from "@/components/sections/section-marquee";
 import {
   featuredSliderImages,
@@ -42,35 +42,21 @@ export async function HomePageContent() {
             {/* <h1 className="text-[clamp(3.5rem,12vw,7.5rem)] font-bold leading-[0.95] uppercase tracking-[0.14em] text-white">
               {t("heroWord")}
             </h1> */}
-            <div className="mt-5 h-px w-28 bg-white/90" />
+            {/* <div className="mt-5 h-px w-28 bg-white/90" /> */}
           </div>
         </div>
       </VideoHeroBackdrop>
 
-      <section className="bg-brand-gold py-20 text-brand-navy md:py-28">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 lg:grid-cols-2 lg:gap-20 lg:px-8">
-          <div>
-            <h2 className="text-2xl font-bold uppercase tracking-[0.28em] md:text-3xl">
-              {t("whoTitle")}
-            </h2>
-            <p className="mt-6 text-base leading-relaxed text-brand-navy/90 md:text-lg">
-              {t("whoBody")}
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link href="/about" className={btnNavy}>
-                {t("aboutCta")}
-              </Link>
-              <button type="button" className={btnSage}>
-                <span className="inline-flex size-7 items-center justify-center rounded-full border border-white/40 text-xs">
-                  ▶
-                </span>
-                {t("watchVideo")}
-              </button>
-            </div>
-          </div>
-          <HomeDiamondCollage thumbs={thumbs} />
-        </div>
-      </section>
+      <HomeWhoWeAreSection
+        kicker={t("whoKicker")}
+        title={t("whoTitle")}
+        body={t("whoBody")}
+        aboutCta={t("aboutCta")}
+        companyProfileCta={t("companyProfile")}
+        scrollLabel={t("scrollToTop")}
+        thumbs={thumbs}
+        isRtl={locale === "ar"}
+      />
 
       <section className="bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">

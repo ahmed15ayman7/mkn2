@@ -77,11 +77,21 @@ export function getHomeCopy(locale: Locale) {
 }
 
 export function getHomeProjectThumbs() {
+  const src = img.interior1;
   return [
-    { src: img.interior1, caption: "Sea Point" },
-    { src: img.interior2, caption: "Al Khobar Residences" },
-    { src: img.interior3, caption: "MKN 3" },
+    { src, caption: "Interior" },
+    { src, caption: "Interior" },
+    { src, caption: "Interior" },
+    { src, caption: "Interior" },
   ] as const;
+}
+
+/** Company profile PDF — override via NEXT_PUBLIC_COMPANY_PROFILE_URL */
+export function companyProfileUrl() {
+  return (
+    process.env.NEXT_PUBLIC_COMPANY_PROFILE_URL ??
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-company-profile.pdf"
+  );
 }
 
 export function getHomeGridProjects() {

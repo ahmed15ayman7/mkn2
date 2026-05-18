@@ -8,9 +8,12 @@
   },
   "Home": {
     "heroWord": "QUALITY",
+    "whoKicker": "// ABOUT MKN REAL ESTATE",
     "whoTitle": "WHO WE ARE",
     "whoBody": "We develop real estate projects that combine contemporary design, build quality, and strategic locations for elevated communities.",
-    "aboutCta": "ABOUT US",
+    "aboutCta": "About Us",
+    "companyProfile": "Company Profile",
+    "scrollToTop": "Scroll to top",
     "watchVideo": "WATCH VIDEO",
     "projectsTitle": "PROJECTS",
     "projectsSub": "Discover our projects shaping modern communities.",

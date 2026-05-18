@@ -3,11 +3,11 @@ export const img = {
   heroArchitecture:
     "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80",
   interior1:
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-who-we-are-image.png",
   interior2:
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-who-we-are-image.png",
   interior3:
-    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
+    "https://real.com.eg/mkn/wp-content/uploads/mkn-who-we-are-image.png",
   coastal:
     "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80",
   construction:
