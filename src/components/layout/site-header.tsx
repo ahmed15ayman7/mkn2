@@ -44,7 +44,7 @@ export function SiteHeader() {
             className="flex items-center gap-2.5"
             onClick={() => setOpen(false)}
           >
-            <Image src="/images/mkn-logo.png" alt="MKN Logo" width={32} height={32} className="w-20 h-20" />
+            <Image src="/logo-mkn.png" alt="MKN Logo" width={32} height={32} className="w-20 h-20" />
             
           </Link>
 
