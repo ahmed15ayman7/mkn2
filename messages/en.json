@@ -149,6 +149,28 @@
     "card6": "Contemporary residential experience",
     "deliverWord": "DELIVER"
   },
+  "Metadata": {
+    "home": {
+      "title": "Premium Real Estate Developer in Al Khobar",
+      "description": "MKN Developments creates modern residential and commercial projects across Saudi Arabia—combining design excellence, build quality, and strategic locations in Al Khobar and beyond.",
+      "keywords": "MKN Developments, real estate Saudi Arabia, Al Khobar developer, premium residential projects, property investment KSA"
+    },
+    "about": {
+      "title": "About MKN Developments",
+      "description": "Learn about MKN Developments—our vision, mission, and values. A Saudi real estate developer focused on quality, innovation, and communities where modern living meets lasting value.",
+      "keywords": "about MKN, Saudi real estate company, vision mission values, Al Khobar developer, premium developments"
+    },
+    "projects": {
+      "title": "Our Projects",
+      "description": "Explore MKN Developments' portfolio of premium residential and mixed-use projects in prime locations—designed for elevated lifestyles and strong investment potential.",
+      "keywords": "MKN projects, Saudi Arabia real estate portfolio, residential developments, Al Khobar properties, new projects"
+    },
+    "contact": {
+      "title": "Contact MKN Developments",
+      "description": "Get in touch with MKN Developments in Al Khobar. Sales inquiries, partnerships, and general questions—our team is ready to help with your next investment or home.",
+      "keywords": "contact MKN, real estate inquiry Al Khobar, MKN sales, property consultation Saudi Arabia"
+    }
+  },
   "Footer": {
     "about": "MKN® is a Saudi real estate developer focused on creating modern residential and commercial projects that combine innovation, quality, and strategic locations to deliver exceptional living and investment opportunities.",
     "quick": "Quick Links",

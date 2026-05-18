@@ -31,7 +31,7 @@ export function HomeDiamondCollage({
             className="absolute start-1/2 top-[3%] z-10 w-[46%] -translate-x-1/2 sm:w-[44%]"
           />
         )}
-        {items[1] && (
+        {/* {items[1] && (
           <DiamondFrame
             src={items[1].src}
             alt={items[1].caption}
@@ -46,7 +46,7 @@ export function HomeDiamondCollage({
             framed
             className="absolute end-[8%] top-[54%] z-20 w-[46%] sm:w-[44%]"
           />
-        )}
+        )} */}
       </div>
     );
   }

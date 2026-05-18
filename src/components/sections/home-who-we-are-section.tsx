@@ -1,7 +1,8 @@
 "use client";
 
 import { ArrowUpRight, FileText } from "lucide-react";
-import { HomeDiamondCollage } from "@/components/sections/home-diamond-collage";
+// import { HomeDiamondCollage } from "@/components/sections/home-diamond-collage";
+import Image from "next/image";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { ScrollSection } from "@/components/motion/scroll-section";
 import { StaggerChildren } from "@/components/motion/stagger-children";
@@ -87,7 +88,8 @@ export function HomeWhoWeAreSection({
           custom={0}
           className={cn(isRtl && "lg:order-1")}
         >
-          <HomeDiamondCollage thumbs={thumbs} variant="triangle" />
+          {/* <HomeDiamondCollage thumbs={thumbs} variant="triangle" /> */}
+          <Image src={thumbs[0].src} alt={thumbs[0].caption} width={500} height={400} />
         </ScrollReveal>
       </div>
     </ScrollSection>

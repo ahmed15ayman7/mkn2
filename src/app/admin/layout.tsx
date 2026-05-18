@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import { AuthSessionProvider } from "@/components/providers/session-provider";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default function AdminRootLayout({
   children,

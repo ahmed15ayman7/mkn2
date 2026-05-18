@@ -7,17 +7,33 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { MotionProvider } from "@/components/motion/motion-provider";
 import { PageTransitionProvider } from "@/components/motion/page-transition-context";
 import { PageTransitionShell } from "@/components/motion/page-transition-shell";
-import { fontAr, fontEn, fontQuote, fontSignature } from "@/lib/fonts";
+import type { AppLocale } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
+import { fontAr, fontEn, fontQuote, fontSignature } from "@/lib/fonts";
+import { buildDefaultLayoutMetadata } from "@/lib/seo/build-metadata";
+import { SITE_NAME, SITE_URL } from "@/lib/seo/config";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: {
-    default: "MKN Developments",
-    template: "%s | MKN Developments",
-  },
-  description: "MKN Developments — premium real estate.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isAr = locale === "ar";
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: SITE_NAME,
+      template: `%s | ${SITE_NAME}`,
+    },
+    description: isAr
+      ? "MKN Developments — تطوير عقاري فاخر في المملكة العربية السعودية."
+      : "MKN Developments — premium real estate development in Saudi Arabia.",
+    ...buildDefaultLayoutMetadata(locale as AppLocale),
+  };
+}
 
 type Props = {
   children: React.ReactNode;
