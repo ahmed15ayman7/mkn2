@@ -57,6 +57,9 @@ function buildPayload(form: FormData, amenities: ProjectAmenity[]) {
     brochureUrl: String(form.get("brochureUrl") ?? ""),
     panoramicImageUrl: String(form.get("panoramicImageUrl") ?? ""),
     panoramicVideoUrl: String(form.get("panoramicVideoUrl") ?? ""),
+    panoramicBackgroundVideoUrl: String(
+      form.get("panoramicBackgroundVideoUrl") ?? "",
+    ),
     designGalleryImages: parseImageLines(String(form.get("designGalleryImages") ?? "")),
     coastalTitleEn: String(form.get("coastalTitleEn") ?? ""),
     coastalTitleAr: String(form.get("coastalTitleAr") ?? ""),
@@ -330,14 +333,21 @@ export function ProjectForm({ project }: ProjectFormProps) {
           defaultValue={project?.brochureUrl ?? ""}
         />
         <AdminInput
-          label="Panoramic / hero video (YouTube URL)"
+          label="Hero play button video (YouTube — opens in modal)"
           name="panoramicVideoUrl"
           type="url"
           placeholder="https://www.youtube.com/watch?v=…"
           defaultValue={project?.panoramicVideoUrl ?? ""}
         />
         <AdminInput
-          label="Panoramic poster image (thumbnail before play)"
+          label="Background video (MP4 or YouTube — autoplays, no button)"
+          name="panoramicBackgroundVideoUrl"
+          type="url"
+          placeholder="https://…/video.mp4"
+          defaultValue={project?.panoramicBackgroundVideoUrl ?? ""}
+        />
+        <AdminInput
+          label="Background video poster (optional, MP4 only)"
           name="panoramicImageUrl"
           type="url"
           defaultValue={project?.panoramicImageUrl ?? ""}

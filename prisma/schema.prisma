@@ -101,8 +101,11 @@ model Project {
   deliveryCtaEn       String?
   deliveryCtaAr       String?
   brochureUrl         String?
-  panoramicImageUrl   String?
-  panoramicVideoUrl   String?
+  panoramicImageUrl           String?
+  /// YouTube — opens in modal from hero play button
+  panoramicVideoUrl           String?
+  /// MP4 or YouTube — autoplay background between delivery and gallery (no play button)
+  panoramicBackgroundVideoUrl String?
   designGalleryImages String[] @default([])
   coastalTitleEn      String?  @db.Text
   coastalTitleAr      String?  @db.Text

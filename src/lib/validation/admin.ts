@@ -72,6 +72,7 @@ export const projectBodySchema = z.object({
   brochureUrl: optionalUrl,
   panoramicImageUrl: optionalUrl,
   panoramicVideoUrl: optionalUrl,
+  panoramicBackgroundVideoUrl: optionalUrl,
   designGalleryImages: z.array(z.string().url()).optional(),
   coastalTitleEn: optionalText,
   coastalTitleAr: optionalText,

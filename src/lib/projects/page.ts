@@ -65,6 +65,8 @@ export function toProjectPageView(
   );
 
   const panoramicVideo = project.panoramicVideoUrl?.trim() || null;
+  const panoramicBackgroundVideo =
+    project.panoramicBackgroundVideoUrl?.trim() || null;
   const deliveryVideo = project.deliveryVideoUrl?.trim() || null;
 
   const completionYear = project.completionDate
@@ -95,6 +97,7 @@ export function toProjectPageView(
       ctaUrl: project.brochureUrl,
     },
     panoramicVideo,
+    panoramicBackgroundVideo,
     completionLabel: project.completionDate
       ? project.completionDate.toLocaleDateString(
           locale === "ar" ? "ar-SA" : "en-US",

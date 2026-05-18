@@ -22,6 +22,7 @@ function pageFields(
   | "brochureUrl"
   | "panoramicImageUrl"
   | "panoramicVideoUrl"
+  | "panoramicBackgroundVideoUrl"
   | "designGalleryImages"
   | "coastalTitleEn"
   | "coastalTitleAr"
@@ -68,6 +69,7 @@ function pageFields(
     brochureUrl: data.brochureUrl ?? undefined,
     panoramicImageUrl: data.panoramicImageUrl ?? undefined,
     panoramicVideoUrl: data.panoramicVideoUrl ?? undefined,
+    panoramicBackgroundVideoUrl: data.panoramicBackgroundVideoUrl ?? undefined,
     designGalleryImages: data.designGalleryImages ?? [],
     coastalTitleEn: data.coastalTitleEn ?? undefined,
     coastalTitleAr: data.coastalTitleAr ?? undefined,

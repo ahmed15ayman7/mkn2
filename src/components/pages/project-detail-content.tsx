@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { ScrollSection } from "@/components/motion/scroll-section";
-import { ProjectPanoramicPoster } from "@/components/media/project-panoramic-poster";
+import { ProjectPanoramicBackgroundVideo } from "@/components/media/project-panoramic-background-video";
 import { ProjectVideoModal } from "@/components/media/project-video-modal";
 import { ProjectVideoPlayButton } from "@/components/media/project-video-play-button";
 import { buttonVariants } from "@/components/ui/button";
@@ -150,11 +150,10 @@ export function ProjectDetailContent({ page }: Props) {
         </div>
       </ScrollSection>
 
-      {page.panoramicVideo && page.panoramicPoster && (
-        <ProjectPanoramicPoster
+      {page.panoramicBackgroundVideo && (
+        <ProjectPanoramicBackgroundVideo
+          videoSrc={page.panoramicBackgroundVideo}
           posterSrc={page.panoramicPoster}
-          title={page.title}
-          onPlay={openPanoramic}
         />
       )}
 

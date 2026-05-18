@@ -28,6 +28,17 @@ function youtubeIdFromUrl(url: string): string | null {
   return null;
 }
 
+/** Muted looping background embed (no controls). */
+export function youtubeBackgroundEmbedUrl(url: string): string | null {
+  const id = youtubeIdFromUrl(url);
+  if (!id) return null;
+  return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&rel=0&modestbranding=1&playsinline=1&disablekb=1`;
+}
+
+export function isDirectVideoFile(url: string): boolean {
+  return /\.(mp4|webm|ogg)(\?|$)/i.test(url.trim());
+}
+
 export function resolveVideoEmbed(url: string): VideoEmbed | null {
   const trimmed = url.trim();
   if (!trimmed) return null;

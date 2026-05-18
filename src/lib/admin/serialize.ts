@@ -32,6 +32,7 @@ export type SerializedProject = {
   brochureUrl: string | null;
   panoramicImageUrl: string | null;
   panoramicVideoUrl: string | null;
+  panoramicBackgroundVideoUrl: string | null;
   designGalleryImages: string[];
   coastalTitleEn: string | null;
   coastalTitleAr: string | null;
@@ -108,6 +109,7 @@ export function serializeProject(
     brochureUrl: project.brochureUrl,
     panoramicImageUrl: project.panoramicImageUrl,
     panoramicVideoUrl: project.panoramicVideoUrl,
+    panoramicBackgroundVideoUrl: project.panoramicBackgroundVideoUrl,
     designGalleryImages: project.designGalleryImages,
     coastalTitleEn: project.coastalTitleEn,
     coastalTitleAr: project.coastalTitleAr,

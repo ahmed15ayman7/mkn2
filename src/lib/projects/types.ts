@@ -26,7 +26,10 @@ export type ProjectPageView = {
     ctaLabel: string | null;
     ctaUrl: string | null;
   };
+  /** YouTube — hero play button → modal */
   panoramicVideo: string | null;
+  /** MP4 / YouTube — autoplay background strip (no play button) */
+  panoramicBackgroundVideo: string | null;
   panoramicPoster: string | null;
   designGalleryImages: string[];
   coastal: {
