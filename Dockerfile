@@ -17,7 +17,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
-# RUN npx prisma db push
+RUN npx prisma db push
 
 FROM base AS runner
 WORKDIR /app

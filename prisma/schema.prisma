@@ -1,8 +1,8 @@
 // Dual-language content for MKN Developments public site + CMS
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
