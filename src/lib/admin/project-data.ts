@@ -4,6 +4,87 @@ import type { projectBodySchema } from "@/lib/validation/admin";
 
 type ProjectInput = z.infer<typeof projectBodySchema>;
 
+function pageFields(
+  data: ProjectInput,
+): Pick<
+  Prisma.ProjectCreateInput,
+  | "heroSubtitleEn"
+  | "heroSubtitleAr"
+  | "deliveryTitleEn"
+  | "deliveryTitleAr"
+  | "deliveryBody1En"
+  | "deliveryBody1Ar"
+  | "deliveryBody2En"
+  | "deliveryBody2Ar"
+  | "deliveryVideoUrl"
+  | "deliveryCtaEn"
+  | "deliveryCtaAr"
+  | "panoramicImageUrl"
+  | "coastalTitleEn"
+  | "coastalTitleAr"
+  | "coastalCol1En"
+  | "coastalCol1Ar"
+  | "coastalCol2En"
+  | "coastalCol2Ar"
+  | "coastalCol3En"
+  | "coastalCol3Ar"
+  | "coastalHighlightEn"
+  | "coastalHighlightAr"
+  | "galleryImages"
+  | "mapImageUrl"
+  | "locationBlurbEn"
+  | "locationBlurbAr"
+  | "locationLabelEn"
+  | "locationLabelAr"
+  | "luxuryTitleEn"
+  | "luxuryTitleAr"
+  | "luxuryCol1En"
+  | "luxuryCol1Ar"
+  | "luxuryCol2En"
+  | "luxuryCol2Ar"
+  | "closingImageUrl"
+  | "amenities"
+> {
+  return {
+    heroSubtitleEn: data.heroSubtitleEn ?? undefined,
+    heroSubtitleAr: data.heroSubtitleAr ?? undefined,
+    deliveryTitleEn: data.deliveryTitleEn ?? undefined,
+    deliveryTitleAr: data.deliveryTitleAr ?? undefined,
+    deliveryBody1En: data.deliveryBody1En ?? undefined,
+    deliveryBody1Ar: data.deliveryBody1Ar ?? undefined,
+    deliveryBody2En: data.deliveryBody2En ?? undefined,
+    deliveryBody2Ar: data.deliveryBody2Ar ?? undefined,
+    deliveryVideoUrl: data.deliveryVideoUrl ?? undefined,
+    deliveryCtaEn: data.deliveryCtaEn ?? undefined,
+    deliveryCtaAr: data.deliveryCtaAr ?? undefined,
+    panoramicImageUrl: data.panoramicImageUrl ?? undefined,
+    coastalTitleEn: data.coastalTitleEn ?? undefined,
+    coastalTitleAr: data.coastalTitleAr ?? undefined,
+    coastalCol1En: data.coastalCol1En ?? undefined,
+    coastalCol1Ar: data.coastalCol1Ar ?? undefined,
+    coastalCol2En: data.coastalCol2En ?? undefined,
+    coastalCol2Ar: data.coastalCol2Ar ?? undefined,
+    coastalCol3En: data.coastalCol3En ?? undefined,
+    coastalCol3Ar: data.coastalCol3Ar ?? undefined,
+    coastalHighlightEn: data.coastalHighlightEn ?? undefined,
+    coastalHighlightAr: data.coastalHighlightAr ?? undefined,
+    galleryImages: data.galleryImages ?? [],
+    mapImageUrl: data.mapImageUrl ?? undefined,
+    locationBlurbEn: data.locationBlurbEn ?? undefined,
+    locationBlurbAr: data.locationBlurbAr ?? undefined,
+    locationLabelEn: data.locationLabelEn ?? undefined,
+    locationLabelAr: data.locationLabelAr ?? undefined,
+    luxuryTitleEn: data.luxuryTitleEn ?? undefined,
+    luxuryTitleAr: data.luxuryTitleAr ?? undefined,
+    luxuryCol1En: data.luxuryCol1En ?? undefined,
+    luxuryCol1Ar: data.luxuryCol1Ar ?? undefined,
+    luxuryCol2En: data.luxuryCol2En ?? undefined,
+    luxuryCol2Ar: data.luxuryCol2Ar ?? undefined,
+    closingImageUrl: data.closingImageUrl ?? undefined,
+    amenities: (data.amenities ?? []) as Prisma.InputJsonValue,
+  };
+}
+
 export function toProjectCreateData(
   data: ProjectInput,
 ): Prisma.ProjectCreateInput {
@@ -22,6 +103,7 @@ export function toProjectCreateData(
     coverImage: data.coverImage,
     images: data.images ?? [],
     featured: data.featured ?? false,
+    ...pageFields(data),
   };
 
   if (data.seo) {
@@ -59,6 +141,7 @@ export function toProjectUpdateData(
     coverImage: data.coverImage,
     images: data.images ?? [],
     featured: data.featured ?? false,
+    ...pageFields(data),
   };
 
   if (data.seo) {

@@ -25,9 +25,10 @@ export default async function AdminProjectsPage() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-primary">Projects</h1>
-          <p className="mt-2 text-primary/70">
-            Manage bilingual project listings and media.
-          </p>
+        <p className="mt-2 text-primary/70">
+          Each project has a full detail page (Sea Point layout). Add image URLs
+          and bilingual copy in the project form.
+        </p>
         </div>
         <Link
           href="/admin/projects/new"

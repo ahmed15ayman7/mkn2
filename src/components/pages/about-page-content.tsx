@@ -13,36 +13,51 @@ export async function AboutPageContent() {
 
   return (
     <>
-      <VideoHeroBackdrop videoSrc={heroVideoSrc()} heightClass="min-h-[55vh]">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/70">
-              {t("crumb")}
-            </p>
-            <h1 className="mt-6 text-5xl font-bold text-white md:text-7xl">
-              {t("title")}
-            </h1>
-          </div>
-          <p className="max-w-xl text-sm leading-relaxed text-white/85 md:text-base">
-            {t("intro")}
-          </p>
+      <VideoHeroBackdrop
+        videoSrc={heroVideoSrc()}
+        overlay="hero"
+        heightClass="min-h-[52vh] md:min-h-[58vh]"
+      >
+        <div className="mx-auto w-full max-w-7xl">
+          <h1 className="text-5xl font-bold tracking-tight text-white md:text-7xl">
+            {t("title")}
+          </h1>
         </div>
       </VideoHeroBackdrop>
 
-      <div className="bg-primary py-3 text-center text-xs font-semibold uppercase tracking-[0.35em] text-white">
-        {t("banner")}
+      <div className="bg-black py-3.5">
+        <p className="text-center text-[11px] font-medium italic uppercase tracking-[0.38em] text-white sm:text-xs">
+          {t("banner")}
+        </p>
       </div>
 
-      <OurNumbersSection />
+      <section className="bg-white py-14 md:py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-2 lg:items-start lg:gap-16 lg:px-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-navy/55">
+              {t("aboutLabel")}
+            </p>
+            <h2 className="mt-3 text-3xl font-bold uppercase tracking-tight text-brand-navy md:text-4xl">
+              {t("whoHeading")}
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-brand-navy/80 md:text-lg">
+            {t("intro")}
+          </p>
+        </div>
+        <hr className="mx-auto mt-14 max-w-7xl border-brand-navy/10 px-4 lg:px-8" />
+      </section>
+
+      <OurNumbersSection variant="about" />
 
       <section className="bg-white py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 lg:grid-cols-2 lg:gap-20 lg:px-8">
           <DiamondMedia src={img.eye} alt="" size="lg" />
           <div>
-            <h2 className="text-3xl font-bold text-primary md:text-4xl">
+            <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-navy md:text-4xl">
               {t("vision")}
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-primary/75">
+            <p className="mt-6 text-lg leading-relaxed text-brand-navy/75">
               {t("visionText")}
             </p>
           </div>
@@ -51,16 +66,16 @@ export async function AboutPageContent() {
 
       <section className="bg-surface py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 lg:grid-cols-2 lg:gap-20 lg:px-8">
-          <div className="lg:order-1">
-            <h2 className="text-3xl font-bold text-primary md:text-4xl">
-              {t("mission")}
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-primary/75">
-              {t("missionText")}
-            </p>
-          </div>
           <div className="lg:order-2">
             <DiamondMedia src={img.target} alt="" size="lg" />
+          </div>
+          <div className="lg:order-1">
+            <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-navy md:text-4xl">
+              {t("mission")}
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-brand-navy/75">
+              {t("missionText")}
+            </p>
           </div>
         </div>
       </section>
@@ -69,16 +84,16 @@ export async function AboutPageContent() {
         <div className="mx-auto grid max-w-7xl items-start gap-14 px-4 lg:grid-cols-2 lg:gap-20 lg:px-8">
           <DiamondMedia src={img.hands} alt="" size="lg" />
           <div>
-            <h2 className="text-3xl font-bold text-primary md:text-4xl">
+            <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-navy md:text-4xl">
               {t("values")}
             </h2>
             <ul className="mt-8 space-y-4">
               {values.map((v) => (
                 <li
                   key={v}
-                  className="flex items-start gap-3 text-lg text-primary/85"
+                  className="flex items-start gap-3 text-lg text-brand-navy/85"
                 >
-                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand-gold" />
                   <span>{v}</span>
                 </li>
               ))}
@@ -89,7 +104,7 @@ export async function AboutPageContent() {
 
       <section className="bg-footer-grid py-24 text-white md:py-32">
         <div className="mx-auto max-w-4xl px-4 text-center lg:px-8">
-          <h2 className="text-5xl font-bold tracking-tight md:text-7xl">
+          <h2 className="text-5xl font-bold uppercase tracking-tight md:text-7xl">
             {t("why")}
           </h2>
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/75">
@@ -100,7 +115,7 @@ export async function AboutPageContent() {
 
       <section className="bg-white py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-8">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-surface">
+          <div className="relative aspect-[4/5] overflow-hidden bg-surface">
             <Image
               src={img.chairman}
               alt=""
@@ -110,18 +125,18 @@ export async function AboutPageContent() {
             />
           </div>
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">
-              {t("chairTitle")}
-            </p>
-            <blockquote
+            <h2
               className={cn(
-                "mt-6 text-2xl leading-relaxed text-primary md:text-3xl",
-                "font-[family-name:var(--font-quote)] italic",
+                "text-3xl text-brand-navy md:text-4xl",
+                "font-[family-name:var(--font-quote)]",
               )}
             >
-              “{t("quote")}”
+              {t("chairTitle")}
+            </h2>
+            <blockquote className="mt-8 text-xl leading-relaxed text-brand-navy/85 md:text-2xl">
+              &ldquo;{t("quote")}&rdquo;
             </blockquote>
-            <p className="mt-8 text-lg font-semibold text-primary">
+            <p className="mt-8 text-lg font-semibold text-brand-navy">
               {t("chairName")}
             </p>
           </div>

@@ -1,11 +1,21 @@
 import { DEFAULT_HERO_VIDEO_URL } from "@/lib/constants/media";
 import { cn } from "@/lib/utils";
 
+type OverlayVariant = "hero" | "page";
+
 type Props = {
   videoSrc?: string;
   heightClass?: string;
+  overlay?: OverlayVariant;
   className?: string;
   children: React.ReactNode;
+};
+
+const overlayClasses: Record<OverlayVariant, string> = {
+  /** Home hero: keep video visible, subtle navy tint */
+  hero: "bg-gradient-to-t from-brand-navy/85 via-brand-navy/35 to-brand-navy/15",
+  /** Inner pages: stronger legibility */
+  page: "bg-gradient-to-t from-primary via-primary/55 to-primary/25",
 };
 
 /**
@@ -14,13 +24,14 @@ type Props = {
 export function VideoHeroBackdrop({
   videoSrc = DEFAULT_HERO_VIDEO_URL,
   heightClass = "min-h-[85vh] sm:min-h-[90vh]",
+  overlay = "page",
   className,
   children,
 }: Props) {
   return (
     <section
       className={cn(
-        "relative flex w-full flex-col justify-end overflow-hidden",
+        "relative flex w-full flex-col overflow-hidden",
         heightClass,
         className,
       )}
@@ -31,16 +42,23 @@ export function VideoHeroBackdrop({
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         aria-hidden
       >
         <source src={videoSrc} type="video/mp4" />
       </video>
       <div
-        className="absolute inset-0 z-[1] bg-gradient-to-t from-primary via-primary/55 to-primary/25"
+        className={cn("absolute inset-0 z-[1]", overlayClasses[overlay])}
         aria-hidden
       />
-      <div className="relative z-[2] flex w-full flex-1 flex-col justify-center px-4 pb-24 pt-28 sm:px-6 lg:px-8">
+      <div
+        className={cn(
+          "relative z-[2] flex w-full flex-1 flex-col px-4 sm:px-6 lg:px-8",
+          overlay === "hero"
+            ? "justify-end pb-28 pt-28 md:pb-36"
+            : "justify-center pb-24 pt-28",
+        )}
+      >
         {children}
       </div>
     </section>

@@ -1,4 +1,6 @@
 import type { Inquiry, Partner, Project, SeoMetadata } from "@prisma/client";
+import { parseAmenitiesJson } from "@/lib/projects/page";
+import type { ProjectAmenity } from "@/lib/projects/types";
 
 export type SerializedProject = {
   id: string;
@@ -16,6 +18,42 @@ export type SerializedProject = {
   coverImage: string;
   images: string[];
   featured: boolean;
+  heroSubtitleEn: string | null;
+  heroSubtitleAr: string | null;
+  deliveryTitleEn: string | null;
+  deliveryTitleAr: string | null;
+  deliveryBody1En: string | null;
+  deliveryBody1Ar: string | null;
+  deliveryBody2En: string | null;
+  deliveryBody2Ar: string | null;
+  deliveryVideoUrl: string | null;
+  deliveryCtaEn: string | null;
+  deliveryCtaAr: string | null;
+  panoramicImageUrl: string | null;
+  coastalTitleEn: string | null;
+  coastalTitleAr: string | null;
+  coastalCol1En: string | null;
+  coastalCol1Ar: string | null;
+  coastalCol2En: string | null;
+  coastalCol2Ar: string | null;
+  coastalCol3En: string | null;
+  coastalCol3Ar: string | null;
+  coastalHighlightEn: string | null;
+  coastalHighlightAr: string | null;
+  galleryImages: string[];
+  mapImageUrl: string | null;
+  locationBlurbEn: string | null;
+  locationBlurbAr: string | null;
+  locationLabelEn: string | null;
+  locationLabelAr: string | null;
+  luxuryTitleEn: string | null;
+  luxuryTitleAr: string | null;
+  luxuryCol1En: string | null;
+  luxuryCol1Ar: string | null;
+  luxuryCol2En: string | null;
+  luxuryCol2Ar: string | null;
+  closingImageUrl: string | null;
+  amenities: ProjectAmenity[];
   seo: {
     metaTitleAr: string;
     metaTitleEn: string;
@@ -48,6 +86,42 @@ export function serializeProject(
     coverImage: project.coverImage,
     images: project.images,
     featured: project.featured,
+    heroSubtitleEn: project.heroSubtitleEn,
+    heroSubtitleAr: project.heroSubtitleAr,
+    deliveryTitleEn: project.deliveryTitleEn,
+    deliveryTitleAr: project.deliveryTitleAr,
+    deliveryBody1En: project.deliveryBody1En,
+    deliveryBody1Ar: project.deliveryBody1Ar,
+    deliveryBody2En: project.deliveryBody2En,
+    deliveryBody2Ar: project.deliveryBody2Ar,
+    deliveryVideoUrl: project.deliveryVideoUrl,
+    deliveryCtaEn: project.deliveryCtaEn,
+    deliveryCtaAr: project.deliveryCtaAr,
+    panoramicImageUrl: project.panoramicImageUrl,
+    coastalTitleEn: project.coastalTitleEn,
+    coastalTitleAr: project.coastalTitleAr,
+    coastalCol1En: project.coastalCol1En,
+    coastalCol1Ar: project.coastalCol1Ar,
+    coastalCol2En: project.coastalCol2En,
+    coastalCol2Ar: project.coastalCol2Ar,
+    coastalCol3En: project.coastalCol3En,
+    coastalCol3Ar: project.coastalCol3Ar,
+    coastalHighlightEn: project.coastalHighlightEn,
+    coastalHighlightAr: project.coastalHighlightAr,
+    galleryImages: project.galleryImages,
+    mapImageUrl: project.mapImageUrl,
+    locationBlurbEn: project.locationBlurbEn,
+    locationBlurbAr: project.locationBlurbAr,
+    locationLabelEn: project.locationLabelEn,
+    locationLabelAr: project.locationLabelAr,
+    luxuryTitleEn: project.luxuryTitleEn,
+    luxuryTitleAr: project.luxuryTitleAr,
+    luxuryCol1En: project.luxuryCol1En,
+    luxuryCol1Ar: project.luxuryCol1Ar,
+    luxuryCol2En: project.luxuryCol2En,
+    luxuryCol2Ar: project.luxuryCol2Ar,
+    closingImageUrl: project.closingImageUrl,
+    amenities: parseAmenitiesJson(project.amenities),
     seo: project.seo
       ? {
           metaTitleAr: project.seo.metaTitleAr,

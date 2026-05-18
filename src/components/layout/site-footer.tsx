@@ -82,12 +82,16 @@ export async function SiteFooter() {
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="size-4 shrink-0 text-accent" />
-                <span dir="ltr">+966 00 000 0000</span>
+                <span dir="ltr">{t("phone1")}</span>
+              </li>
+              <li className="flex items-center gap-2" dir="ltr">
+                <Phone className="size-4 shrink-0 text-accent" />
+                <span>{t("phone2")}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="size-4 shrink-0 text-accent" />
-                <a href="mailto:info@mkn.com" className="hover:text-white">
-                  info@mkn.com
+                <a href={`mailto:${t("email")}`} className="hover:text-white">
+                  {t("email")}
                 </a>
               </li>
             </ul>

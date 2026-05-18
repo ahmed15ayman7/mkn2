@@ -36,24 +36,6 @@ export default async function AdminPanelLayout({
                 Projects
               </Link>
               <Link
-                href="/admin/partners"
-                className="text-primary/80 hover:text-primary"
-              >
-                Partners
-              </Link>
-              <Link
-                href="/admin/content"
-                className="text-primary/80 hover:text-primary"
-              >
-                Content
-              </Link>
-              <Link
-                href="/admin/inquiries"
-                className="text-primary/80 hover:text-primary"
-              >
-                Inquiries
-              </Link>
-              <Link
                 href="/admin/users"
                 className="text-primary/80 hover:text-primary"
               >

@@ -4,14 +4,20 @@ type Props = {
 };
 
 export function SectionMarquee({ items, className }: Props) {
+  const track = [...items, ...items];
+
   return (
     <div
-      className={`border-y border-white/10 bg-primary py-4 text-white ${className ?? ""}`}
+      className={`overflow-hidden border-y border-white/10 bg-brand-navy py-4 text-white ${className ?? ""}`}
+      aria-hidden
     >
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-3 px-4 text-xs font-semibold uppercase tracking-[0.2em] sm:gap-6 sm:text-sm">
-        {items.map((label, i) => (
-          <span key={label} className="flex items-center gap-3">
-            {i > 0 ? <span className="text-accent">•</span> : null}
+      <div className="flex w-max animate-marquee">
+        {track.map((label, i) => (
+          <span
+            key={`${label}-${i}`}
+            className="flex shrink-0 items-center gap-6 px-6 text-xs font-semibold uppercase tracking-[0.22em] sm:text-sm"
+          >
+            <span className="text-brand-gold">•</span>
             <span>{label}</span>
           </span>
         ))}

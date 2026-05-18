@@ -25,6 +25,20 @@ const seoSchema = z
   })
   .optional();
 
+const optionalText = z
+  .string()
+  .optional()
+  .transform((v) => (v && v.trim().length > 0 ? v : null));
+
+export const projectAmenitySchema = z.object({
+  titleEn: z.string().min(1),
+  titleAr: z.string().min(1),
+  descEn: z.string().min(1),
+  descAr: z.string().min(1),
+  imageUrl: optionalUrl,
+  variant: z.enum(["default", "accent", "muted", "image"]).optional(),
+});
+
 export const projectBodySchema = z.object({
   slug: slugSchema,
   titleAr: z.string().min(1).max(200),
@@ -44,6 +58,42 @@ export const projectBodySchema = z.object({
   images: z.array(z.string().url()).optional(),
   featured: z.boolean().optional(),
   seo: seoSchema,
+  heroSubtitleEn: optionalText,
+  heroSubtitleAr: optionalText,
+  deliveryTitleEn: optionalText,
+  deliveryTitleAr: optionalText,
+  deliveryBody1En: optionalText,
+  deliveryBody1Ar: optionalText,
+  deliveryBody2En: optionalText,
+  deliveryBody2Ar: optionalText,
+  deliveryVideoUrl: optionalUrl,
+  deliveryCtaEn: optionalText,
+  deliveryCtaAr: optionalText,
+  panoramicImageUrl: optionalUrl,
+  coastalTitleEn: optionalText,
+  coastalTitleAr: optionalText,
+  coastalCol1En: optionalText,
+  coastalCol1Ar: optionalText,
+  coastalCol2En: optionalText,
+  coastalCol2Ar: optionalText,
+  coastalCol3En: optionalText,
+  coastalCol3Ar: optionalText,
+  coastalHighlightEn: optionalText,
+  coastalHighlightAr: optionalText,
+  galleryImages: z.array(z.string().url()).optional(),
+  mapImageUrl: optionalUrl,
+  locationBlurbEn: optionalText,
+  locationBlurbAr: optionalText,
+  locationLabelEn: optionalText,
+  locationLabelAr: optionalText,
+  luxuryTitleEn: optionalText,
+  luxuryTitleAr: optionalText,
+  luxuryCol1En: optionalText,
+  luxuryCol1Ar: optionalText,
+  luxuryCol2En: optionalText,
+  luxuryCol2Ar: optionalText,
+  closingImageUrl: optionalUrl,
+  amenities: z.array(projectAmenitySchema).optional(),
 });
 
 export const partnerBodySchema = z.object({
