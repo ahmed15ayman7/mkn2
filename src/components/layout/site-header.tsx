@@ -3,10 +3,10 @@
 import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { MknLogo } from "@/components/brand/mkn-logo";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export function SiteHeader() {
   const t = useTranslations("Nav");
@@ -44,15 +44,8 @@ export function SiteHeader() {
             className="flex items-center gap-2.5"
             onClick={() => setOpen(false)}
           >
-            <MknLogo variant={scrolled ? "gold" : "light"} />
-            <span
-              className={cn(
-                "text-base font-semibold tracking-[0.18em]",
-                scrolled ? "text-primary" : "text-white",
-              )}
-            >
-              {t("brand")}
-            </span>
+            <Image src="/images/mkn-logo.png" alt="MKN Logo" width={32} height={32} className="w-20 h-20" />
+            
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">

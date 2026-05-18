@@ -35,13 +35,13 @@ export async function HomePageContent() {
       <VideoHeroBackdrop
         videoSrc={heroVideoSrc()}
         overlay="hero"
-        heightClass="min-h-[92vh] sm:min-h-[95vh]"
+        heightClass="min-h-[98vh] sm:min-h-[95vh]"
       >
         <div className="mx-auto w-full max-w-7xl">
           <div className="max-w-4xl">
-            <h1 className="text-[clamp(3.5rem,12vw,7.5rem)] font-bold leading-[0.95] uppercase tracking-[0.14em] text-white">
+            {/* <h1 className="text-[clamp(3.5rem,12vw,7.5rem)] font-bold leading-[0.95] uppercase tracking-[0.14em] text-white">
               {t("heroWord")}
-            </h1>
+            </h1> */}
             <div className="mt-5 h-px w-28 bg-white/90" />
           </div>
         </div>
