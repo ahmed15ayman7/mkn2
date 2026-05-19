@@ -221,7 +221,7 @@ export function ProjectDetailContent({ page }: Props) {
             </div>
           )} */}
 
-          {(page.coastal.col3 || page.coastal.highlight) && (
+          {/* {(page.coastal.col3 || page.coastal.highlight) && (
             <div className="mt-16 grid gap-10 border-t border-brand-navy/10 pt-12 md:grid-cols-2">
               {page.coastal.col3 && (
                 <p className="text-sm leading-relaxed text-brand-navy/70">
@@ -239,7 +239,7 @@ export function ProjectDetailContent({ page }: Props) {
                 </p>
               )}
             </div>
-          )}
+          )} */}
         </div>
       </ScrollSection>
       <ProjectApproachColumns columns={page.approach.columns} />
