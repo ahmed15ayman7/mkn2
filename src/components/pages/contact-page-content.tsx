@@ -6,16 +6,15 @@ import {
   ContactCareersSection,
   ContactInfoSection,
 } from "@/components/pages/contact-motion-sections";
-import { VideoHeroBackdrop } from "@/components/media/video-hero-backdrop";
 import {
   IconFacebook,
   IconInstagram,
   IconLinkedin,
   IconYoutube,
 } from "@/components/icons/social-icons";
-import { heroVideoSrc } from "@/lib/content/home";
 import { img } from "@/lib/content/images";
 import { cn } from "@/lib/utils";
+import { ImageHero } from "@/components/sections/image-hero";
 
 const sectionHeading =
   "text-xs font-bold uppercase tracking-[0.22em] text-brand-navy";
@@ -27,9 +26,8 @@ export async function ContactPageContent() {
 
   return (
     <>
-      <VideoHeroBackdrop
-        videoSrc={heroVideoSrc()}
-        overlay="hero"
+      <ImageHero
+        image={img.contactHero}
         heightClass="min-h-[50vh] md:min-h-[56vh]"
       >
         <div className="mx-auto w-full max-w-7xl">
@@ -40,7 +38,7 @@ export async function ContactPageContent() {
             {t("sub")}
           </p>
         </div>
-      </VideoHeroBackdrop>
+      </ImageHero>
 
       <ContactInfoSection>
         <button

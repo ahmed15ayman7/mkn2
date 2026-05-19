@@ -1,9 +1,9 @@
 import { getTranslations, getLocale } from "next-intl/server";
-import { VideoHeroBackdrop } from "@/components/media/video-hero-backdrop";
 import { OurNumbersSection } from "@/components/sections/our-numbers-section";
 import { ProjectsShowcaseCarousel } from "@/components/pages/projects-showcase-carousel";
-import { heroVideoSrc } from "@/lib/content/home";
 import { getPublicProjects } from "@/lib/projects/public";
+import { ImageHero } from "@/components/sections/image-hero";
+import { img } from "@/lib/content/images";
 
 export async function ProjectsPageContent() {
   const t = await getTranslations("Projects");
@@ -12,9 +12,8 @@ export async function ProjectsPageContent() {
 
   return (
     <>
-      <VideoHeroBackdrop
-        videoSrc={heroVideoSrc()}
-        overlay="hero"
+      <ImageHero 
+        image={img.projectsHero}
         heightClass="min-h-[50vh] md:min-h-[56vh]"
       >
         <div className="mx-auto w-full max-w-7xl">
@@ -25,7 +24,7 @@ export async function ProjectsPageContent() {
             {t("sub")}
           </p>
         </div>
-      </VideoHeroBackdrop>
+      </ImageHero>
       <ProjectsShowcaseCarousel projects={projects} />
       <OurNumbersSection variant="projects" />
     </>
