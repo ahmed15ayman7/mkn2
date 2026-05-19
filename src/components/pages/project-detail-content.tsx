@@ -358,7 +358,7 @@ export function ProjectDetailContent({ page }: Props) {
         <ScrollSection
           preset="project-amenities"
           as="section"
-          className="bg-section-sage py-16 text-brand-navy md:py-20"
+          className="bg-white py-16 text-brand-navy md:py-20"
         >
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             {page.facilities.title && (

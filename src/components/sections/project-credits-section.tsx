@@ -17,7 +17,7 @@ export function ProjectCreditsSection({ credits }: Props) {
     <ScrollSection
       preset="project-amenities"
       as="section"
-      className="border-t border-brand-navy/10 bg-section-sage py-16 text-brand-navy md:py-20"
+      className="border-t border-brand-navy/10 bg-[#B5BD9A] py-16 text-brand-navy md:py-20"
     >
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div
