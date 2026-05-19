@@ -1,5 +1,10 @@
+import {
+  featuredSliderImages,
+  getHomeCopy,
+  getHomeGridProjects,
+} from "@/lib/content/home";
+import { mergeProjectGalleryImages } from "@/lib/projects/gallery";
 import { prisma } from "@/lib/prisma";
-import { getHomeGridProjects } from "@/lib/content/home";
 
 export type PublicProjectCard = {
   id: string;
@@ -122,4 +127,68 @@ export async function getFeaturedPublicProject(
 ): Promise<PublicProjectCard | null> {
   const projects = await getPublicProjects(locale);
   return projects.find((p) => p.featured) ?? projects[0] ?? null;
+}
+
+export type FeaturedHomeSectionData = {
+  slug: string;
+  title: string;
+  description: string;
+  location: string;
+  dateLabel: string;
+  slides: { src: string; alt: string }[];
+};
+
+export async function getFeaturedHomeSectionData(
+  locale: string,
+): Promise<FeaturedHomeSectionData> {
+  const fallbackCopy = getHomeCopy(locale as "en" | "ar");
+
+  try {
+    const project = await prisma.project.findFirst({
+      where: { featured: true },
+      orderBy: { updatedAt: "desc" },
+    });
+
+    if (project) {
+      const card = toCard(project, locale);
+      const gallery = mergeProjectGalleryImages(
+        project.designGalleryImages,
+        project.galleryImages,
+        project.images,
+        project.coverImage,
+      );
+      const slides =
+        gallery.length > 0
+          ? gallery.map((src, i) => ({
+              src,
+              alt: `${card.title} ${i + 1}`,
+            }))
+          : [{ src: project.coverImage, alt: card.title }];
+
+      return {
+        slug: project.slug,
+        title: card.title,
+        description: card.description,
+        location: card.location,
+        dateLabel: card.dateLabel,
+        slides,
+      };
+    }
+  } catch {
+    // DB unavailable — static fallback below
+  }
+
+  const staticSlides = featuredSliderImages().map((src, i) => ({
+    src,
+    alt: `${fallbackCopy.featuredTitle} ${i + 1}`,
+  }));
+
+  return {
+    slug: fallbackCopy.featuredSlug,
+    title: fallbackCopy.featuredTitle,
+    description: fallbackCopy.featuredBody,
+    location: fallbackCopy.metaLocation.split("—")[0]?.trim() ?? fallbackCopy.metaLocation,
+    dateLabel: fallbackCopy.metaYear,
+    slides: staticSlides,
+  };
 }

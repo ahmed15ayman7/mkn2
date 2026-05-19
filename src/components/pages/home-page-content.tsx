@@ -7,12 +7,14 @@ import { HomeWhoWeAreSection } from "@/components/sections/home-who-we-are-secti
 import { PartnersSection } from "@/components/sections/partners-section";
 import { SectionMarquee } from "@/components/sections/section-marquee";
 import {
-  featuredSliderImages,
   getHomeProjectThumbs,
   heroVideoSrc,
   lifestyleImage,
 } from "@/lib/content/home";
-import { getPublicProjects } from "@/lib/projects/public";
+import {
+  getFeaturedHomeSectionData,
+  getPublicProjects,
+} from "@/lib/projects/public";
 import { cn } from "@/lib/utils";
 
 const btnNavy =
@@ -27,10 +29,7 @@ export async function HomePageContent() {
   const isRtl = locale === "ar";
   const thumbs = getHomeProjectThumbs();
   const grid = await getPublicProjects(locale);
-  const slides = featuredSliderImages().map((src, i) => ({
-    src,
-    alt: `${t("featuredTitle")} ${i + 1}`,
-  }));
+  const featured = await getFeaturedHomeSectionData(locale);
 
   return (
     <>
@@ -66,14 +65,15 @@ export async function HomePageContent() {
 
       <HomeFeaturedSection
         isRtl={isRtl}
-        featuredTitle={t("featuredTitle")}
-        featuredBody={t("featuredBody")}
+        projectSlug={featured.slug}
+        featuredTitle={featured.title}
+        featuredBody={featured.description}
         viewProject={t("viewProject")}
         viewAll={t("viewAll")}
-        metaLocation={t("metaLocation")}
-        metaYear={t("metaYear")}
+        metaLocation={featured.location}
+        metaYear={featured.dateLabel || t("metaYear")}
         btnSage={cn(btnSage)}
-        slides={slides}
+        slides={featured.slides}
       />
 
       <HomeLifestyleSection

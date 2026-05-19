@@ -83,8 +83,7 @@ export function OurNumbersSection({
               ) : (
                 <>
                   <span className="text-5xl xl:text-7xl">OUR</span>
-                  <span className="text-5xl xl:text-7xl">NUMBER</span>
-                  <span className="text-5xl xl:text-7xl">S</span>
+                  <span className="text-5xl xl:text-7xl">NUMBERS</span>
                 </>
               )}
             </h2>

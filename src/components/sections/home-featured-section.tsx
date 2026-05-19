@@ -10,6 +10,7 @@ type Slide = { src: string; alt: string };
 
 type Props = {
   isRtl?: boolean;
+  projectSlug: string;
   featuredTitle: string;
   featuredBody: string;
   viewProject: string;
@@ -22,6 +23,7 @@ type Props = {
 
 export function HomeFeaturedSection({
   isRtl = false,
+  projectSlug,
   featuredTitle,
   featuredBody,
   viewProject,
@@ -48,7 +50,7 @@ export function HomeFeaturedSection({
             </ScrollReveal>
             <ScrollReveal preset="home-featured" isRtl={isRtl} variantKey="cta">
               <TransitionLink
-                href="/projects/sea-point"
+                href={`/projects/${projectSlug}`}
                 className={cn(btnSage, "mt-10 inline-flex")}
               >
                 {viewProject} →
