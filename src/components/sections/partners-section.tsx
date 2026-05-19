@@ -15,10 +15,10 @@ export function PartnersSection({ kicker, title, isRtl = false }: Props) {
     <ScrollSection
       preset="home-partners"
       isRtl={isRtl}
-      className="border-b border-brand-navy/10 bg-white py-14 md:py-20"
+      className="relative border-b border-brand-navy/10 bg-white py-14 md:py-20"
     >
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 lg:grid-cols-[minmax(200px,280px)_1fr] lg:gap-12 lg:px-8">
-        <div>
+      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 lg:grid-cols-[minmax(200px,280px)_1fr] lg:gap-12 lg:px-8">
+        <div className="relative">
           <ScrollReveal preset="home-partners" variantKey="kicker" isRtl={isRtl}>
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-brand-navy/55 sm:text-sm">
               {kicker}
