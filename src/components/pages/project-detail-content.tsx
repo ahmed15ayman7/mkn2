@@ -13,7 +13,10 @@ import { ProjectCreditsSection } from "@/components/sections/project-credits-sec
 import { ProjectMaterialColors } from "@/components/sections/project-material-colors";
 import { buttonVariants } from "@/components/ui/button";
 import { gallerySlots } from "@/lib/projects/gallery";
-import type { ProjectPageView, ProjectAmenityVariant } from "@/lib/projects/types";
+import type {
+  ProjectPageView,
+  ProjectAmenityVariant,
+} from "@/lib/projects/types";
 import { cn } from "@/lib/utils";
 
 type Props = { page: ProjectPageView };
@@ -85,7 +88,9 @@ export function ProjectDetailContent({ page }: Props) {
             <p className="text-6xl font-black uppercase leading-none tracking-tighter md:text-8xl">
               {splitDelivery.head}
               {splitDelivery.tail && (
-                <span className="block text-5xl md:text-7xl">{splitDelivery.tail}</span>
+                <span className="block text-5xl md:text-7xl">
+                  {splitDelivery.tail}
+                </span>
               )}
             </p>
             {page.completionYear && (
@@ -117,7 +122,11 @@ export function ProjectDetailContent({ page }: Props) {
         />
       )}
 
-      <ScrollSection preset="project-gallery" as="section" className="bg-white py-20 md:py-28">
+      <ScrollSection
+        preset="project-gallery"
+        as="section"
+        className="bg-white py-20 md:py-28"
+      >
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           {page.coastal.title && (
             <h2 className="max-w-2xl text-3xl font-bold tracking-tight text-brand-navy md:text-5xl">
@@ -139,36 +148,81 @@ export function ProjectDetailContent({ page }: Props) {
             </div>
           )}
 
-          <div className="mt-16 grid gap-4 md:grid-cols-4 md:grid-rows-3 md:gap-3">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-sm md:col-span-2 md:row-span-1">
-              <Image src={gallery[0]} alt="" fill className="object-cover" sizes="50vw" />
+          <div className="mt-16 flex flex-wrap gap-4 md:gap-3">
+            {/* الصورة الأولى */}
+            <div className="relative h-[250px] w-auto overflow-hidden rounded-sm">
+              <Image
+                src={gallery[0]}
+                alt=""
+                height={250}
+                width={400} // الـ width هنا بيكون تقريبي كـ fallback والـ w-auto في الـ css هي اللي هتتحكم
+                className="h-full w-auto object-contain"
+              />
             </div>
-            <div className="relative aspect-[3/4] overflow-hidden rounded-sm md:col-span-2 md:row-span-2 md:col-start-3 md:row-start-1">
-              <Image src={gallery[1]} alt="" fill className="object-cover" sizes="50vw" />
+
+            {/* الصورة الثانية */}
+            <div className="relative h-[250px] w-auto overflow-hidden rounded-sm">
+              <Image
+                src={gallery[1]}
+                alt=""
+                height={250}
+                width={180}
+                className="h-full w-auto object-contain"
+              />
             </div>
-            <div className="relative aspect-[21/9] overflow-hidden rounded-sm md:col-span-4 md:row-span-1">
-              <Image src={gallery[2]} alt="" fill className="object-cover" sizes="100vw" />
+
+            {/* الصورة الثالثة */}
+            <div className="relative h-[250px] w-full md:w-auto overflow-hidden rounded-sm">
+              <Image
+                src={gallery[2]}
+                alt=""
+                height={250}
+                width={600}
+                className="h-full w-auto object-contain"
+              />
             </div>
-            <div className="relative aspect-[3/4] overflow-hidden rounded-sm md:col-span-2">
-              <Image src={gallery[3]} alt="" fill className="object-cover" sizes="40vw" />
+
+            {/* الصورة الرابعة */}
+            <div className="relative h-[250px] w-auto overflow-hidden rounded-sm">
+              <Image
+                src={gallery[3]}
+                alt=""
+                height={250}
+                width={180}
+                className="h-full w-auto object-contain"
+              />
             </div>
-            <div className="relative aspect-[16/10] overflow-hidden rounded-sm md:col-span-2">
-              <Image src={gallery[4]} alt="" fill className="object-cover" sizes="40vw" />
+
+            {/* الصورة الخامسة */}
+            <div className="relative h-[250px] w-auto overflow-hidden rounded-sm">
+              <Image
+                src={gallery[4]}
+                alt=""
+                height={250}
+                width={400}
+                className="h-full w-auto object-contain"
+              />
             </div>
           </div>
 
-          {extraGallery.length > 0 && (
+          {/* {extraGallery.length > 0 && (
             <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {extraGallery.map((src) => (
                 <div
                   key={src}
                   className="relative aspect-[4/3] overflow-hidden rounded-sm"
                 >
-                  <Image src={src} alt="" fill className="object-cover" sizes="33vw" />
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    sizes="33vw"
+                  />
                 </div>
               ))}
             </div>
-          )}
+          )} */}
 
           {(page.coastal.col3 || page.coastal.highlight) && (
             <div className="mt-16 grid gap-10 border-t border-brand-navy/10 pt-12 md:grid-cols-2">
@@ -193,7 +247,11 @@ export function ProjectDetailContent({ page }: Props) {
       </ScrollSection>
       <ProjectApproachColumns columns={page.approach.columns} />
       {page.map.image && (
-        <ScrollSection preset="project-closing" as="section" className="relative min-h-[420px]">
+        <ScrollSection
+          preset="project-closing"
+          as="section"
+          className="relative min-h-[420px]"
+        >
           <Image
             src={page.map.image}
             alt=""
@@ -276,8 +334,12 @@ export function ProjectDetailContent({ page }: Props) {
                         />
                       </div>
                     )}
-                    <p className="font-semibold text-brand-navy">{item.title}</p>
-                    <p className="mt-3 text-sm text-brand-navy/65">{item.desc}</p>
+                    <p className="font-semibold text-brand-navy">
+                      {item.title}
+                    </p>
+                    <p className="mt-3 text-sm text-brand-navy/65">
+                      {item.desc}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -306,7 +368,10 @@ export function ProjectDetailContent({ page }: Props) {
             )}
             <ul className="mt-10 columns-1 gap-x-12 text-sm text-brand-navy/85 sm:columns-2 lg:columns-4">
               {page.facilities.items.map((item) => (
-                <li key={item} className="mb-3 break-inside-avoid leading-relaxed">
+                <li
+                  key={item}
+                  className="mb-3 break-inside-avoid leading-relaxed"
+                >
                   {item}
                 </li>
               ))}
