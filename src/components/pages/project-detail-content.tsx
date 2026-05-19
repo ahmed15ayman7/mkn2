@@ -18,8 +18,9 @@ import type {
   ProjectAmenityVariant,
 } from "@/lib/projects/types";
 import { cn } from "@/lib/utils";
+import { PartnersSection } from "../sections/partners-section";
 
-type Props = { page: ProjectPageView };
+type Props = { page: ProjectPageView, t: (key: string) => string, isRtl: boolean };
 
 const amenitySurface: Record<ProjectAmenityVariant, string> = {
   default: "bg-white",
@@ -30,7 +31,7 @@ const amenitySurface: Record<ProjectAmenityVariant, string> = {
 
 
 
-export function ProjectDetailContent({ page }: Props) {
+export function ProjectDetailContent({ page, t, isRtl }: Props) {
   const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
   const gallery = gallerySlots(page.gallery.all, page.coverImage);
   const extraGallery = page.gallery.all.slice(5);
@@ -376,7 +377,11 @@ export function ProjectDetailContent({ page }: Props) {
           </div>
         </ScrollSection>
       )}
-
+      <PartnersSection
+        kicker={t("partnersKicker")}
+        title={t("partnersTitle")}
+        isRtl={isRtl}
+      />
       {page.closingImage && (
         <div className="relative h-80 w-full md:h-96">
           <Image
