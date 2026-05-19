@@ -26,6 +26,8 @@ export function AdminFieldHelp({ helpKey, className }: Props) {
       </button>
       <span
         role="tooltip"
+        lang="ar"
+        dir="rtl"
         className="pointer-events-none absolute start-6 top-1/2 z-50 hidden w-72 -translate-y-1/2 rounded-lg border border-primary/15 bg-white p-3 text-start text-xs leading-relaxed text-primary shadow-lg group-hover:pointer-events-auto group-hover:block group-focus-within:block"
       >
         <span className="mb-1 block font-semibold text-brand-gold">
