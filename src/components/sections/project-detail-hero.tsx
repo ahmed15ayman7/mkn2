@@ -54,6 +54,10 @@ export function ProjectDetailHero({ page, onPlayVideo }: Props) {
       <div
         className="absolute inset-y-0 start-0 z-10 flex w-full flex-col justify-between bg-brand-navy/80 px-6 py-10 sm:w-1/2 sm:px-10 sm:py-12 lg:px-14 lg:py-16"
         aria-label={page.title}
+        style={{    height: "50vh",
+          bottom: 0,
+          top: "auto",
+        }}
       >
         <div>
           {videos.heroModal && (
