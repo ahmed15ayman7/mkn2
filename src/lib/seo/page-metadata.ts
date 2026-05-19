@@ -15,6 +15,7 @@ const PATH_MAP: Record<StaticPageKey, StaticSeoPath> = {
 export async function buildStaticPageMetadata(
   locale: AppLocale,
   page: StaticPageKey,
+  image: string
 ) {
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
@@ -24,5 +25,6 @@ export async function buildStaticPageMetadata(
     description: t(`${page}.description`),
     keywords: t(`${page}.keywords`),
     path: PATH_MAP[page],
+    ogImage: image,
   });
 }

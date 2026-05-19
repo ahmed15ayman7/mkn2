@@ -42,4 +42,7 @@ export const img = {
     "https://real.com.eg/mkn/wp-content/uploads/mkn-footer.jpeg",
   resumeDesk:
     "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=2000&q=80",
+    projectsHero:"https://real.com.eg/mkn/wp-content/uploads/mkn-ourprojects.jpeg",
+    aboutHero:"https://real.com.eg/mkn/wp-content/uploads/mkn-aboutus.jpeg",
+    contactHero:"https://real.com.eg/mkn/wp-content/uploads/mkn-contact.jpeg",
 } as const;

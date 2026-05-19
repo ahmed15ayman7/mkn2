@@ -4,12 +4,13 @@ import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import type { AppLocale } from "@/i18n/routing";
 import { buildStaticPageMetadata } from "@/lib/seo/page-metadata";
 import { setRequestLocale } from "next-intl/server";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo/config";
 
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  return buildStaticPageMetadata(locale as AppLocale, "home");
+  return buildStaticPageMetadata(locale as AppLocale, "home", DEFAULT_OG_IMAGE);
 }
 
 export default async function Home({ params }: Props) {

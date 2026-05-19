@@ -3,12 +3,13 @@ import { AboutPageContent } from "@/components/pages/about-page-content";
 import type { AppLocale } from "@/i18n/routing";
 import { buildStaticPageMetadata } from "@/lib/seo/page-metadata";
 import { setRequestLocale } from "next-intl/server";
+import { img } from "@/lib/content/images";
 
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  return buildStaticPageMetadata(locale as AppLocale, "about");
+  return buildStaticPageMetadata(locale as AppLocale, "about", img.aboutHero);
 }
 
 export default async function AboutPage({ params }: Props) {
