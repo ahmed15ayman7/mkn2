@@ -5,6 +5,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ProjectAmenitiesEditor } from "@/components/admin/project-amenities-editor";
+import { ProjectApproachColumnsEditor } from "@/components/admin/project-approach-columns-editor";
+import { ProjectCreditsEditor } from "@/components/admin/project-credits-editor";
 import { ProjectMaterialColorsEditor } from "@/components/admin/project-material-colors-editor";
 import {
   AdminField,
@@ -12,7 +14,12 @@ import {
   AdminTextarea,
 } from "@/components/admin/admin-field";
 import type { SerializedProject } from "@/lib/admin/serialize";
-import type { ProjectAmenity, ProjectMaterialColor } from "@/lib/projects/types";
+import type {
+  ProjectAmenity,
+  ProjectApproachColumn,
+  ProjectCreditGroup,
+  ProjectMaterialColor,
+} from "@/lib/projects/types";
 import { parseFacilityLines, parseImageLines } from "@/lib/validation/admin";
 import { cn } from "@/lib/utils";
 
@@ -23,13 +30,29 @@ type ProjectFormProps = {
 function buildPayload(
   form: FormData,
   amenities: ProjectAmenity[],
+  approachColumns: ProjectApproachColumn[],
   materialColors: ProjectMaterialColor[],
+  projectCredits: ProjectCreditGroup[],
 ) {
   const filteredAmenities = amenities.filter(
     (a) => a.titleEn.trim() || a.titleAr.trim(),
   );
+  const filteredApproach = approachColumns.filter((col) => {
+    if (col.kind === "paragraph") return col.bodyEn.trim() || col.bodyAr.trim();
+    return (
+      col.labelEn.trim() ||
+      col.labelAr.trim() ||
+      col.headlineEn.trim() ||
+      col.headlineAr.trim()
+    );
+  });
   const filteredColors = materialColors.filter(
     (c) => c.nameEn.trim() || c.nameAr.trim(),
+  );
+  const filteredCredits = projectCredits.filter(
+    (g) =>
+      (g.titleEn.trim() || g.titleAr.trim()) &&
+      g.items.some((item) => item.roleEn.trim() || item.roleAr.trim()),
   );
 
   return {
@@ -80,6 +103,7 @@ function buildPayload(
     coastalHighlightEn: String(form.get("coastalHighlightEn") ?? ""),
     coastalHighlightAr: String(form.get("coastalHighlightAr") ?? ""),
     galleryImages: parseImageLines(String(form.get("galleryImages") ?? "")),
+    approachColumns: filteredApproach,
     mapImageUrl: String(form.get("mapImageUrl") ?? ""),
     mapLogoUrl: String(form.get("mapLogoUrl") ?? ""),
     locationBlurbEn: String(form.get("locationBlurbEn") ?? ""),
@@ -88,6 +112,9 @@ function buildPayload(
     locationLabelAr: String(form.get("locationLabelAr") ?? ""),
     materialColorsIntroImageUrl: String(form.get("materialColorsIntroImageUrl") ?? ""),
     materialColors: filteredColors,
+    creditsTitleEn: String(form.get("creditsTitleEn") ?? ""),
+    creditsTitleAr: String(form.get("creditsTitleAr") ?? ""),
+    projectCredits: filteredCredits,
     luxuryTitleEn: String(form.get("luxuryTitleEn") ?? ""),
     luxuryTitleAr: String(form.get("luxuryTitleAr") ?? ""),
     luxuryCol1En: String(form.get("luxuryCol1En") ?? ""),
@@ -95,6 +122,15 @@ function buildPayload(
     luxuryCol2En: String(form.get("luxuryCol2En") ?? ""),
     luxuryCol2Ar: String(form.get("luxuryCol2Ar") ?? ""),
     closingImageUrl: String(form.get("closingImageUrl") ?? ""),
+    ctaEyebrowEn: String(form.get("ctaEyebrowEn") ?? ""),
+    ctaEyebrowAr: String(form.get("ctaEyebrowAr") ?? ""),
+    ctaTitleEn: String(form.get("ctaTitleEn") ?? ""),
+    ctaTitleAr: String(form.get("ctaTitleAr") ?? ""),
+    ctaBodyEn: String(form.get("ctaBodyEn") ?? ""),
+    ctaBodyAr: String(form.get("ctaBodyAr") ?? ""),
+    ctaButtonEn: String(form.get("ctaButtonEn") ?? ""),
+    ctaButtonAr: String(form.get("ctaButtonAr") ?? ""),
+    ctaWhatsappUrl: String(form.get("ctaWhatsappUrl") ?? ""),
     facilitiesTitleEn: String(form.get("facilitiesTitleEn") ?? ""),
     facilitiesTitleAr: String(form.get("facilitiesTitleAr") ?? ""),
     facilitiesEn: parseFacilityLines(String(form.get("facilitiesEn") ?? "")),
@@ -132,8 +168,14 @@ export function ProjectForm({ project }: ProjectFormProps) {
   const [amenities, setAmenities] = useState<ProjectAmenity[]>(
     project?.amenities ?? [],
   );
+  const [approachColumns, setApproachColumns] = useState<ProjectApproachColumn[]>(
+    project?.approachColumns ?? [],
+  );
   const [materialColors, setMaterialColors] = useState<ProjectMaterialColor[]>(
     project?.materialColors ?? [],
+  );
+  const [projectCredits, setProjectCredits] = useState<ProjectCreditGroup[]>(
+    project?.projectCredits ?? [],
   );
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -142,7 +184,13 @@ export function ProjectForm({ project }: ProjectFormProps) {
     setLoading(true);
 
     const form = new FormData(e.currentTarget);
-    const payload = buildPayload(form, amenities, materialColors);
+    const payload = buildPayload(
+      form,
+      amenities,
+      approachColumns,
+      materialColors,
+      projectCredits,
+    );
 
     try {
       const url = project
@@ -438,6 +486,16 @@ export function ProjectForm({ project }: ProjectFormProps) {
         />
       </Section>
 
+      <Section
+        title="Approach columns"
+        description="Three-column grid shown before the location map. Use paragraph columns for body copy and highlight for numbered steps with a large headline."
+      >
+        <ProjectApproachColumnsEditor
+          value={approachColumns}
+          onChange={setApproachColumns}
+        />
+      </Section>
+
       <Section title="Location map">
         <AdminInput
           label="Map image URL"
@@ -489,6 +547,27 @@ export function ProjectForm({ project }: ProjectFormProps) {
           value={materialColors}
           onChange={setMaterialColors}
         />
+      </Section>
+
+      <Section
+        title="Credits"
+        description="Team credits grid shown after material colors. Add one category per column (e.g. Project Management, Design & Architecture)."
+      >
+        <div className="grid gap-4 sm:grid-cols-2">
+          <AdminInput
+            label="Section title (EN)"
+            name="creditsTitleEn"
+            placeholder="Credits"
+            defaultValue={project?.creditsTitleEn ?? ""}
+          />
+          <AdminInput
+            label="Section title (AR)"
+            name="creditsTitleAr"
+            placeholder="الاعتمادات"
+            defaultValue={project?.creditsTitleAr ?? ""}
+          />
+        </div>
+        <ProjectCreditsEditor value={projectCredits} onChange={setProjectCredits} />
       </Section>
 
       <Section
@@ -568,6 +647,66 @@ export function ProjectForm({ project }: ProjectFormProps) {
           name="closingImageUrl"
           type="url"
           defaultValue={project?.closingImageUrl ?? ""}
+        />
+      </Section>
+
+      <Section
+        title="Say Hi CTA"
+        description="Contact banner after the closing image. Fill any field to enable; empty fields use defaults."
+      >
+        <div className="grid gap-4 sm:grid-cols-2">
+          <AdminInput
+            label="Eyebrow (EN)"
+            name="ctaEyebrowEn"
+            placeholder="WE WOULD LOVE TO HEAR FROM YOU"
+            defaultValue={project?.ctaEyebrowEn ?? ""}
+          />
+          <AdminInput
+            label="Eyebrow (AR)"
+            name="ctaEyebrowAr"
+            defaultValue={project?.ctaEyebrowAr ?? ""}
+          />
+          <AdminInput
+            label="Title (EN)"
+            name="ctaTitleEn"
+            placeholder="SAY HI"
+            defaultValue={project?.ctaTitleEn ?? ""}
+          />
+          <AdminInput
+            label="Title (AR)"
+            name="ctaTitleAr"
+            defaultValue={project?.ctaTitleAr ?? ""}
+          />
+        </div>
+        <AdminTextarea
+          label="Description (EN)"
+          name="ctaBodyEn"
+          defaultValue={project?.ctaBodyEn ?? ""}
+        />
+        <AdminTextarea
+          label="Description (AR)"
+          name="ctaBodyAr"
+          defaultValue={project?.ctaBodyAr ?? ""}
+        />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <AdminInput
+            label="Button label (EN)"
+            name="ctaButtonEn"
+            placeholder="DROP US A LINE"
+            defaultValue={project?.ctaButtonEn ?? ""}
+          />
+          <AdminInput
+            label="Button label (AR)"
+            name="ctaButtonAr"
+            defaultValue={project?.ctaButtonAr ?? ""}
+          />
+        </div>
+        <AdminInput
+          label="WhatsApp URL or phone"
+          name="ctaWhatsappUrl"
+          type="url"
+          placeholder="https://wa.me/9665xxxxxxx"
+          defaultValue={project?.ctaWhatsappUrl ?? ""}
         />
       </Section>
 

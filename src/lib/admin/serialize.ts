@@ -1,7 +1,14 @@
 import type { Inquiry, Partner, Project, SeoMetadata } from "@prisma/client";
 import { parseAmenitiesJson } from "@/lib/projects/parse-amenities";
 import { parseMaterialColorsJson } from "@/lib/projects/parse-material-colors";
-import type { ProjectAmenity, ProjectMaterialColor } from "@/lib/projects/types";
+import { parseApproachColumnsJson } from "@/lib/projects/parse-approach-columns";
+import { parseProjectCreditsJson } from "@/lib/projects/parse-project-credits";
+import type {
+  ProjectAmenity,
+  ProjectApproachColumn,
+  ProjectCreditGroup,
+  ProjectMaterialColor,
+} from "@/lib/projects/types";
 
 export type SerializedProject = {
   id: string;
@@ -46,6 +53,7 @@ export type SerializedProject = {
   coastalHighlightEn: string | null;
   coastalHighlightAr: string | null;
   galleryImages: string[];
+  approachColumns: ProjectApproachColumn[];
   mapImageUrl: string | null;
   mapLogoUrl: string | null;
   locationBlurbEn: string | null;
@@ -54,6 +62,9 @@ export type SerializedProject = {
   locationLabelAr: string | null;
   materialColorsIntroImageUrl: string | null;
   materialColors: ProjectMaterialColor[];
+  creditsTitleEn: string | null;
+  creditsTitleAr: string | null;
+  projectCredits: ProjectCreditGroup[];
   luxuryTitleEn: string | null;
   luxuryTitleAr: string | null;
   luxuryCol1En: string | null;
@@ -61,6 +72,15 @@ export type SerializedProject = {
   luxuryCol2En: string | null;
   luxuryCol2Ar: string | null;
   closingImageUrl: string | null;
+  ctaEyebrowEn: string | null;
+  ctaEyebrowAr: string | null;
+  ctaTitleEn: string | null;
+  ctaTitleAr: string | null;
+  ctaBodyEn: string | null;
+  ctaBodyAr: string | null;
+  ctaButtonEn: string | null;
+  ctaButtonAr: string | null;
+  ctaWhatsappUrl: string | null;
   facilitiesTitleEn: string | null;
   facilitiesTitleAr: string | null;
   facilitiesEn: string[];
@@ -125,6 +145,7 @@ export function serializeProject(
     coastalHighlightEn: project.coastalHighlightEn,
     coastalHighlightAr: project.coastalHighlightAr,
     galleryImages: project.galleryImages,
+    approachColumns: parseApproachColumnsJson(project.approachColumns),
     mapImageUrl: project.mapImageUrl,
     mapLogoUrl: project.mapLogoUrl,
     locationBlurbEn: project.locationBlurbEn,
@@ -133,6 +154,9 @@ export function serializeProject(
     locationLabelAr: project.locationLabelAr,
     materialColorsIntroImageUrl: project.materialColorsIntroImageUrl,
     materialColors: parseMaterialColorsJson(project.materialColors),
+    creditsTitleEn: project.creditsTitleEn,
+    creditsTitleAr: project.creditsTitleAr,
+    projectCredits: parseProjectCreditsJson(project.projectCredits),
     luxuryTitleEn: project.luxuryTitleEn,
     luxuryTitleAr: project.luxuryTitleAr,
     luxuryCol1En: project.luxuryCol1En,
@@ -140,6 +164,15 @@ export function serializeProject(
     luxuryCol2En: project.luxuryCol2En,
     luxuryCol2Ar: project.luxuryCol2Ar,
     closingImageUrl: project.closingImageUrl,
+    ctaEyebrowEn: project.ctaEyebrowEn,
+    ctaEyebrowAr: project.ctaEyebrowAr,
+    ctaTitleEn: project.ctaTitleEn,
+    ctaTitleAr: project.ctaTitleAr,
+    ctaBodyEn: project.ctaBodyEn,
+    ctaBodyAr: project.ctaBodyAr,
+    ctaButtonEn: project.ctaButtonEn,
+    ctaButtonAr: project.ctaButtonAr,
+    ctaWhatsappUrl: project.ctaWhatsappUrl,
     facilitiesTitleEn: project.facilitiesTitleEn,
     facilitiesTitleAr: project.facilitiesTitleAr,
     facilitiesEn: project.facilitiesEn,

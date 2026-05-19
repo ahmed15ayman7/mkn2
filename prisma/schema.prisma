@@ -114,11 +114,6 @@ model Project {
   deliveryCtaEn    String?
   deliveryCtaAr    String?
   brochureUrl      String?
-
-  // gallery.*
-  designGalleryImages String[] @default([])
-  galleryImages       String[] @default([])
-
   // coastal.*
   coastalTitleEn     String? @db.Text
   coastalTitleAr     String? @db.Text
@@ -130,6 +125,14 @@ model Project {
   coastalCol3Ar      String? @db.Text
   coastalHighlightEn String? @db.Text
   coastalHighlightAr String? @db.Text
+  // gallery.*
+  designGalleryImages String[] @default([])
+  galleryImages       String[] @default([])
+
+
+  // approach.columns[] — grid before map
+  /// [{ kind: "paragraph", bodyEn, bodyAr } | { kind: "highlight", index, labelEn, labelAr, headlineEn, headlineAr }]
+  approachColumns Json @default("[]")
 
   // map.*
   mapImageUrl     String?
@@ -143,6 +146,12 @@ model Project {
   materialColorsIntroImageUrl String?
   /// [{ category, nameEn, nameAr, hex, ralCode?, ncsCode? }]
   materialColors Json @default("[]")
+
+  // credits.* — team credits after material colors
+  creditsTitleEn String?
+  creditsTitleAr String?
+  /// [{ titleEn, titleAr, items: [{ roleEn, roleAr, nameEn, nameAr }] }]
+  projectCredits Json @default("[]")
 
   // luxury.*
   luxuryTitleEn String? @db.Text
@@ -158,8 +167,17 @@ model Project {
   facilitiesEn      String[] @default([])
   facilitiesAr      String[] @default([])
 
-  // closingImage, amenities[]
+  // closingImage, contact CTA, amenities
   closingImageUrl String?
+  ctaEyebrowEn    String?
+  ctaEyebrowAr    String?
+  ctaTitleEn      String?
+  ctaTitleAr      String?
+  ctaBodyEn       String? @db.Text
+  ctaBodyAr       String? @db.Text
+  ctaButtonEn     String?
+  ctaButtonAr     String?
+  ctaWhatsappUrl  String?
   /// [{ titleEn, titleAr, descEn, descAr, imageUrl?, variant? }]
   amenities Json @default("[]")
 

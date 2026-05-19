@@ -7,7 +7,16 @@ export { gallerySlots, mergeProjectGalleryImages } from "@/lib/projects/gallery"
 export { parseAmenitiesJson } from "@/lib/projects/parse-amenities";
 
 import { parseAmenitiesJson } from "@/lib/projects/parse-amenities";
+import { parseApproachColumnsJson } from "@/lib/projects/parse-approach-columns";
 import { parseMaterialColorsJson } from "@/lib/projects/parse-material-colors";
+import { buildProjectContactCta } from "@/lib/projects/contact-cta";
+import {
+  formatHeroDelivery,
+  formatHeroStartPrice,
+  formatHeroStartSpace,
+  heroStatLabels,
+} from "@/lib/projects/format-hero-stats";
+import { parseProjectCreditsJson } from "@/lib/projects/parse-project-credits";
 
 function pick(
   locale: string,
@@ -59,6 +68,23 @@ export function toProjectPageView(
   const facilitiesItems =
     locale === "ar" ? project.facilitiesAr : project.facilitiesEn;
 
+  const approachColumns = parseApproachColumnsJson(project.approachColumns).map(
+    (col) => {
+      if (col.kind === "paragraph") {
+        return {
+          kind: "paragraph" as const,
+          body: pickRequired(locale, col.bodyEn, col.bodyAr),
+        };
+      }
+      return {
+        kind: "highlight" as const,
+        index: col.index,
+        label: pickRequired(locale, col.labelEn, col.labelAr),
+        headline: pickRequired(locale, col.headlineEn, col.headlineAr),
+      };
+    },
+  );
+
   const materialColorItems = parseMaterialColorsJson(project.materialColors).map(
     (c) => ({
       category: c.category,
@@ -97,6 +123,28 @@ export function toProjectPageView(
 
     hero: {
       subtitle: pick(locale, project.heroSubtitleEn, project.heroSubtitleAr),
+      stats: {
+        labels: heroStatLabels(locale),
+        startPrice: formatHeroStartPrice(
+          decimalToNumber(project.investmentValue),
+          locale,
+        ),
+        startSpace: formatHeroStartSpace(
+          decimalToNumber(project.areaSqm),
+          locale,
+        ),
+        delivery: formatHeroDelivery(
+          project.completionDate,
+          project.completionDate
+            ? project.completionDate.toLocaleDateString(
+                locale === "ar" ? "ar-SA" : "en-US",
+                { month: "long", day: "numeric", year: "numeric" },
+              )
+            : null,
+          locale,
+        ),
+        location: pickRequired(locale, project.locationEn, project.locationAr),
+      },
     },
 
     videos: {
@@ -137,6 +185,10 @@ export function toProjectPageView(
       ),
     },
 
+    approach: {
+      columns: approachColumns,
+    },
+
     map: {
       image: project.mapImageUrl,
       logoUrl: project.mapLogoUrl,
@@ -149,6 +201,19 @@ export function toProjectPageView(
     materialColors: {
       introImage: trimUrl(project.materialColorsIntroImageUrl),
       items: materialColorItems,
+    },
+
+    credits: {
+      title:
+        pick(locale, project.creditsTitleEn, project.creditsTitleAr) ??
+        (locale === "ar" ? "الاعتمادات" : "Credits"),
+      groups: parseProjectCreditsJson(project.projectCredits).map((g) => ({
+        title: pickRequired(locale, g.titleEn, g.titleAr),
+        items: g.items.map((item) => ({
+          role: pickRequired(locale, item.roleEn, item.roleAr),
+          name: pickRequired(locale, item.nameEn, item.nameAr),
+        })),
+      })),
     },
 
     luxury: {
@@ -165,6 +230,7 @@ export function toProjectPageView(
     },
 
     closingImage: project.closingImageUrl,
+    contactCta: buildProjectContactCta(project, locale),
     amenities,
   };
 }

@@ -43,6 +43,39 @@ const hexColorSchema = z
   .string()
   .regex(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/, "Use a valid hex color (#RRGGBB)");
 
+const approachParagraphSchema = z.object({
+  kind: z.literal("paragraph"),
+  bodyEn: z.string().min(1),
+  bodyAr: z.string().min(1),
+});
+
+const approachHighlightSchema = z.object({
+  kind: z.literal("highlight"),
+  index: z.string().min(1).max(10),
+  labelEn: z.string().min(1),
+  labelAr: z.string().min(1),
+  headlineEn: z.string().min(1),
+  headlineAr: z.string().min(1),
+});
+
+export const projectApproachColumnSchema = z.discriminatedUnion("kind", [
+  approachParagraphSchema,
+  approachHighlightSchema,
+]);
+
+const projectCreditItemSchema = z.object({
+  roleEn: z.string().min(1),
+  roleAr: z.string().min(1),
+  nameEn: z.string().min(1),
+  nameAr: z.string().min(1),
+});
+
+export const projectCreditGroupSchema = z.object({
+  titleEn: z.string().min(1),
+  titleAr: z.string().min(1),
+  items: z.array(projectCreditItemSchema).min(1),
+});
+
 export const projectMaterialColorSchema = z.object({
   category: z.enum(["primary", "secondary"]),
   nameEn: z.string().min(1),
@@ -104,6 +137,7 @@ export const projectBodySchema = z.object({
   coastalHighlightEn: optionalText,
   coastalHighlightAr: optionalText,
   galleryImages: z.array(z.string().url()).optional(),
+  approachColumns: z.array(projectApproachColumnSchema).optional(),
   mapImageUrl: optionalUrl,
   mapLogoUrl: optionalUrl,
   locationBlurbEn: optionalText,
@@ -112,6 +146,9 @@ export const projectBodySchema = z.object({
   locationLabelAr: optionalText,
   materialColorsIntroImageUrl: optionalUrl,
   materialColors: z.array(projectMaterialColorSchema).optional(),
+  creditsTitleEn: optionalText,
+  creditsTitleAr: optionalText,
+  projectCredits: z.array(projectCreditGroupSchema).optional(),
   luxuryTitleEn: optionalText,
   luxuryTitleAr: optionalText,
   luxuryCol1En: optionalText,
@@ -119,6 +156,15 @@ export const projectBodySchema = z.object({
   luxuryCol2En: optionalText,
   luxuryCol2Ar: optionalText,
   closingImageUrl: optionalUrl,
+  ctaEyebrowEn: optionalText,
+  ctaEyebrowAr: optionalText,
+  ctaTitleEn: optionalText,
+  ctaTitleAr: optionalText,
+  ctaBodyEn: optionalText,
+  ctaBodyAr: optionalText,
+  ctaButtonEn: optionalText,
+  ctaButtonAr: optionalText,
+  ctaWhatsappUrl: optionalUrl,
   facilitiesTitleEn: optionalText,
   facilitiesTitleAr: optionalText,
   facilitiesEn: z.array(z.string().min(1)).optional(),

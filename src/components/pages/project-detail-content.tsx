@@ -6,6 +6,10 @@ import { ScrollSection } from "@/components/motion/scroll-section";
 import { ProjectPanoramicBackgroundVideo } from "@/components/media/project-panoramic-background-video";
 import { ProjectVideoModal } from "@/components/media/project-video-modal";
 import { ProjectVideoPlayButton } from "@/components/media/project-video-play-button";
+import { ProjectDetailHero } from "@/components/sections/project-detail-hero";
+import { ProjectApproachColumns } from "@/components/sections/project-approach-columns";
+import { ProjectContactCta } from "@/components/sections/project-contact-cta";
+import { ProjectCreditsSection } from "@/components/sections/project-credits-section";
 import { ProjectMaterialColors } from "@/components/sections/project-material-colors";
 import { buttonVariants } from "@/components/ui/button";
 import { gallerySlots } from "@/lib/projects/gallery";
@@ -50,52 +54,7 @@ export function ProjectDetailContent({ page }: Props) {
         title={page.title}
         onClose={() => setActiveVideoUrl(null)}
       />
-      <ScrollSection preset="project-hero" as="section" className="relative min-h-[70vh]">
-        <Image
-          src={page.coverImage}
-          alt={page.title}
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-brand-navy/35" aria-hidden />
-        <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-7xl items-end px-4 pb-16 lg:px-8">
-          <div className="max-w-md rounded-sm border border-white/15 bg-brand-navy/85 p-8 text-white shadow-2xl backdrop-blur-md">
-            <Image
-              src="/logo-mkn.png"
-              alt="MKN"
-              width={40}
-              height={40}
-              className="h-10 w-auto"
-            />
-            {page.videos.heroModal && (
-              <div className="mt-6">
-                <ProjectVideoPlayButton variant="hero" onClick={openHeroVideo} />
-              </div>
-            )}
-            {page.completionLabel && (
-              <p className="mt-4 text-xs uppercase tracking-[0.2em] text-white/55">
-                {page.completionLabel}
-              </p>
-            )}
-            <h1
-              className={cn(
-                "font-serif text-4xl font-bold md:text-5xl",
-                page.videos.heroModal || page.completionLabel ? "mt-4" : "mt-6",
-              )}
-            >
-              {page.title}
-            </h1>
-            {(page.hero.subtitle || page.description) && (
-              <p className="mt-2 text-lg text-white/85">
-                {page.hero.subtitle ?? page.description}
-              </p>
-            )}
-            <p className="mt-1 text-sm text-white/60">{page.location}</p>
-          </div>
-        </div>
-      </ScrollSection>
+      <ProjectDetailHero page={page} onPlayVideo={openHeroVideo} />
 
       <ScrollSection
         preset="project-delivery"
@@ -232,7 +191,7 @@ export function ProjectDetailContent({ page }: Props) {
           )}
         </div>
       </ScrollSection>
-
+      <ProjectApproachColumns columns={page.approach.columns} />
       {page.map.image && (
         <ScrollSection preset="project-closing" as="section" className="relative min-h-[420px]">
           <Image
@@ -265,11 +224,6 @@ export function ProjectDetailContent({ page }: Props) {
           </div>
         </ScrollSection>
       )}
-
-      <ProjectMaterialColors
-        introImage={page.materialColors.introImage}
-        items={page.materialColors.items}
-      />
 
       {showFeatureSection && (
         <ScrollSection
@@ -331,6 +285,12 @@ export function ProjectDetailContent({ page }: Props) {
           </div>
         </ScrollSection>
       )}
+      <ProjectMaterialColors
+        introImage={page.materialColors.introImage}
+        items={page.materialColors.items}
+      />
+
+      <ProjectCreditsSection credits={page.credits} />
 
       {page.facilities.items.length > 0 && (
         <ScrollSection
@@ -366,6 +326,8 @@ export function ProjectDetailContent({ page }: Props) {
           />
         </div>
       )}
+
+      {page.contactCta && <ProjectContactCta cta={page.contactCta} />}
     </>
   );
 }
