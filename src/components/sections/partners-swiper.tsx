@@ -22,7 +22,7 @@ export function PartnersSwiper({ isRtl = false }: Props) {
   const NextIcon = isRtl ? ChevronLeft : ChevronRight;
 
   return (
-    <div className="relative flex min-w-0 max-w-4xl flex-1 items-center gap-3 sm:gap-5">
+    <div className="relative flex min-w-0 max-w-lg md:max-w-4xl flex-1 items-center gap-3 sm:gap-5">
       <button
         type="button"
         onClick={() => swiperRef.current?.slidePrev()}
