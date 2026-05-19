@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ScrollSection } from "@/components/motion/scroll-section";
 import { ProjectPanoramicBackgroundVideo } from "@/components/media/project-panoramic-background-video";
@@ -20,7 +21,7 @@ import type {
 import { cn } from "@/lib/utils";
 import { PartnersSection } from "../sections/partners-section";
 
-type Props = { page: ProjectPageView, t: (key: string) => string, isRtl: boolean };
+type Props = { page: ProjectPageView; isRtl: boolean };
 
 const amenitySurface: Record<ProjectAmenityVariant, string> = {
   default: "bg-white",
@@ -31,7 +32,8 @@ const amenitySurface: Record<ProjectAmenityVariant, string> = {
 
 
 
-export function ProjectDetailContent({ page, t, isRtl }: Props) {
+export function ProjectDetailContent({ page, isRtl }: Props) {
+  const t = useTranslations("Home");
   const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
   const gallery = gallerySlots(page.gallery.all, page.coverImage);
   const extraGallery = page.gallery.all.slice(5);

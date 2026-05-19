@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ProjectDetailContent } from "@/components/pages/project-detail-content";
 import { notFound } from "next/navigation";
-import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
+import { getLocale, setRequestLocale } from "next-intl/server";
 import type { AppLocale } from "@/i18n/routing";
 import { getProjectPageBySlug } from "@/lib/projects/page";
 import { getProjectSeoBySlug } from "@/lib/projects/seo";
@@ -51,7 +51,6 @@ export async function generateStaticParams() {
 export default async function ProjectDetailPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("Home");
   const isRtl = locale === "ar";
   const activeLocale = await getLocale();
   const page = await getProjectPageBySlug(slug, activeLocale);
@@ -59,5 +58,5 @@ export default async function ProjectDetailPage({ params }: Props) {
     notFound();
   }
 
-  return <ProjectDetailContent page={page} t={t} isRtl={isRtl} />;
+  return <ProjectDetailContent page={page} isRtl={isRtl} />;
 }
