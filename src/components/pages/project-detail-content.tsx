@@ -28,16 +28,13 @@ const amenitySurface: Record<ProjectAmenityVariant, string> = {
   image: "bg-white",
 };
 
-function splitDeliveryTitle(title: string) {
-  if (title.length <= 1) return { head: title, tail: "" };
-  return { head: title.slice(0, -1), tail: title.slice(-1) };
-}
+
 
 export function ProjectDetailContent({ page }: Props) {
   const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
   const gallery = gallerySlots(page.gallery.all, page.coverImage);
   const extraGallery = page.gallery.all.slice(5);
-  const splitDelivery = splitDeliveryTitle(page.delivery.title);
+  const splitDelivery = page.delivery.title.split(" ");
   const showLuxuryIntro = Boolean(page.luxury.col1 || page.luxury.col2);
   const showFeatureSection =
     Boolean(page.luxury.title) || showLuxuryIntro || page.amenities.length > 0;
@@ -86,10 +83,10 @@ export function ProjectDetailContent({ page }: Props) {
           </div>
           <div className="text-center lg:text-start">
             <p className="text-6xl font-black uppercase leading-none tracking-tighter md:text-8xl">
-              {splitDelivery.head}
-              {splitDelivery.tail && (
+              {splitDelivery[0]}
+              {splitDelivery[1] && (
                 <span className="block text-5xl md:text-7xl">
-                  {splitDelivery.tail}
+                  {splitDelivery[1]}
                 </span>
               )}
             </p>
