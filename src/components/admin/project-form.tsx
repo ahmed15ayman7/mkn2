@@ -255,10 +255,9 @@ export function ProjectForm({ project }: ProjectFormProps) {
 
   return (
     <form onSubmit={onSubmit} className="space-y-6">
-      <AdminCollapsibleSection
+      <Section
         title="إعدادات القائمة"
         description="حقول البطاقات والرابط — لا تظهر بهذا الترتيب في صفحة تفاصيل المشروع."
-        defaultOpen={false}
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <AdminInput
@@ -369,7 +368,7 @@ export function ProjectForm({ project }: ProjectFormProps) {
           helpKey="images"
           defaultValue={project?.images.join("\n") ?? ""}
         />
-      </AdminCollapsibleSection>
+      </Section>
 
       <Section
         title="1 — الهيرو"
